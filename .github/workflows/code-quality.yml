@@ -43,7 +43,7 @@ jobs:
       - name: Run Tests with Coverage
         run: |
           poetry run coverage run --source=krypto_lib -m pytest
-          poetry run coverage xml  # Required for SonarCloud
+          poetry run coverage xml
           poetry run coverage report
 
       - name: Upload Coverage Artifact
