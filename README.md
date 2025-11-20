@@ -25,7 +25,7 @@ It aims to provide tools for encryption, hashing, key management, and secure dat
 
 The project is organized into the following main directories:
 
-- `kypto/`: Core library code for cryptographic operations.
+- `kypto_lib/`: Core library code for cryptographic operations.
 - `tests/`: Unit and integration tests for the library.
 - `cli/`: Command-line interface tools for interacting with the library.
 - `api/`: RESTful API endpoints for remote cryptographic services.

@@ -1,0 +1,31 @@
+[project]
+name = "krypto"
+version = "0.1.0"
+description = "All-in-one Python framework for modern cryptography"
+authors = [
+    { name = "Luis Chinea Rangel", email = "luischinearangel@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+
+[project.urls]
+"Homepage" = "https://github.com/LuisChineaRangel/krypto"
+"Repository" = "https://github.com/LuisChineaRangel/krypto"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.pytest.ini_options]
+minversion = "9.0"
+addopts = "--cov=krypto_lib --cov-report=term-missing"
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.0.1,<10.0.0)",
+    "coverage (>=7.12.0,<8.0.0)"
+]
