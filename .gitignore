@@ -106,3 +106,4 @@ Desktop.ini
 *.cache
 *.coverage
 *.pytest_cache/
+*coverage.xml
