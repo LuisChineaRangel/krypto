@@ -10,8 +10,37 @@ nonce = bytes.fromhex("84133f2261ef44796e3669dc")
 plaintext = b"Python & ChaCha20 encryption example."
 initial_counter = 1
 
+def test_error_on_invalid_types():
+    with pytest.raises(TypeError):
+        encrypt(plaintext, key, nonce, initial_counter, hex_input=True)
+
+    invalid_key = bytes.fromhex("1234")
+    invalid_nonce = bytes.fromhex("5678")
+    invalid_counter = 99999999999999999999999999999999999  # Too large
+
+    with pytest.raises(ValueError):
+        encrypt(plaintext, invalid_key, nonce, initial_counter)
+    with pytest.raises(ValueError):
+        encrypt(plaintext, key, invalid_nonce, initial_counter)
+    with pytest.raises(ValueError):
+        encrypt(plaintext, key, nonce, invalid_counter)
+
 def test_encrypt_returns_bytes():
     ciphertext = encrypt(plaintext, key, nonce, initial_counter)
+    assert isinstance(ciphertext, bytes)
+    assert len(ciphertext) == len(plaintext)
+
+def test_encrypt_with_string_input():
+    text_plaintext = plaintext.decode("utf-8")
+    ciphertext = encrypt(text_plaintext, key, nonce, initial_counter)
+    assert isinstance(ciphertext, bytes)
+    assert len(ciphertext) == len(plaintext)
+
+def test_encrypt_with_hex_input():
+    hex_plaintext = bytes_to_hex(plaintext)
+    ciphertext = encrypt(
+        hex_plaintext, key, nonce, initial_counter, hex_input=True
+    )
     assert isinstance(ciphertext, bytes)
     assert len(ciphertext) == len(plaintext)
 

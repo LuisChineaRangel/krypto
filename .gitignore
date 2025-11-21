@@ -104,6 +104,5 @@ Desktop.ini
 # Misc
 # =========================
 *.cache
-*.coverage
+*coverage*
 *.pytest_cache/
-*coverage.xml

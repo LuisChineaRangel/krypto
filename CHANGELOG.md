@@ -5,16 +5,26 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ---
 
-## [Unreleased]
+## [0.1.1] - 2025-11-25
 
-- Placeholder for upcoming features and improvements.
+### Added
+
+- Added utility functions in `krypto_lib/utils.py` for:
+  - Resizing byte sequences.
+- Implemented additional test cases for utility functions.
+- Implemented **Vigenère cipher** in `krypto_lib/vigenere.py`:
+  - Key setup and encryption/decryption functions.
+
+### Fixed
+
+- Fixed minor bugs in the ChaCha20 implementation related to type handling.
 
 ## [0.1.0] - 2025-11-20
 
 ### Added
 
 - Initial release of **Kypto**, a Python framework for modern cryptography.
-- Implemented **ChaCha20** symmetric cipher:
+- Implemented **ChaCha20** symmetric cipher in `krypto_lib/chacha20.py`:
   - Key setup, nonce handling, counter support.
   - Block generation and encryption function.
 - Utility functions for converting between bytes, integers, hex, and strings.
