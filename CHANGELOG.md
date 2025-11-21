@@ -5,7 +5,20 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ---
 
-## [0.1.1] - 2025-11-25
+## [0.1.2] - 2025-11-21
+
+### Added
+
+- Added RC4 (ARC4) symmetric cipher in `krypto_lib/symmetric/arc4.py`:
+  - Key scheduling algorithm (KSA) and pseudo-random generation algorithm (PRGA).
+  - Encryption/decryption function.
+- Implemented test cases for RC4 in `tests/test_arc4.py`.
+
+### Changed
+
+- Updated Vigenère cipher implementation to use uppercase alphabet by default.
+
+## [0.1.1] - 2025-11-21
 
 ### Added
 

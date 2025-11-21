@@ -1,6 +1,6 @@
 [project]
 name = "krypto"
-version = "0.1.0"
+version = "0.1.2"
 description = "All-in-one Python framework for modern cryptography"
 authors = [
     { name = "Luis Chinea Rangel", email = "luischinearangel@gmail.com" }
@@ -16,7 +16,7 @@ requires-python = ">=3.11"
 name = "krypto"
 authors = ["Luis Chinea Rangel"]
 description = "All-in-one Python framework for modern cryptography"
-version = "0.1.0"
+version = "0.1.2"
 packages = [
     { include = "krypto_lib" }
 ]

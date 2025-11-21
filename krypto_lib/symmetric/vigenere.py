@@ -1,11 +1,11 @@
 import string
 
-def encrypt(plaintext: str, key: str, alphabet: str = string.ascii_letters, reverse: bool = False) -> str:
+def encrypt(plaintext: str, key: str, alphabet: str = string.ascii_uppercase, reverse: bool = False) -> str:
     """Encrypts the given plaintext using the Vigenère cipher with the provided key and alphabet.
     Args:
         plaintext (str): The input plaintext to encrypt.
         key (str): The encryption key.
-        alphabet (str, optional): The alphabet to use for encryption. Defaults to ASCII letters.
+        alphabet (str, optional): The alphabet to use for encryption. Defaults to ASCII uppercase letters.
         reverse (bool, optional): If True, performs decryption instead of encryption. Defaults to False.
     Returns:
         str: The encrypted ciphertext.
@@ -15,7 +15,7 @@ def encrypt(plaintext: str, key: str, alphabet: str = string.ascii_letters, reve
     ciphertext = []
     key_len = len(key)
     key_index = 0
-    for i, char in enumerate(plaintext):
+    for _, char in enumerate(plaintext):
         if char in alphabet_index:
             text_idx = alphabet_index[char]
             key_idx = alphabet_index[key[key_index % key_len]]

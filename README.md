@@ -21,10 +21,11 @@ It aims to provide tools for encryption, hashing, key management, and secure dat
 
 ## Current Status
 
-- Project just started (v0.1.0)
+- Project just started (v0.1.2)
 - Initial project structure in place
 - Core modules and basic setup planned
-- CLI and API scaffolding under development
+- Vigenère, ARC4, and ChaCha20 ciphers implemented
+- Basic unit tests for implemented ciphers
 
 ---
 
