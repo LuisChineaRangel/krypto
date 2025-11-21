@@ -1,5 +1,12 @@
 # Kypto
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LuisChineaRangel_krypto&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LuisChineaRangel_krypto)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=LuisChineaRangel_krypto&metric=bugs)](https://sonarcloud.io/summary/new_code?id=LuisChineaRangel_krypto)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=LuisChineaRangel_krypto&metric=coverage)](https://sonarcloud.io/summary/new_code?id=LuisChineaRangel_krypto)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=LuisChineaRangel_krypto&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=LuisChineaRangel_krypto)
+
+---
+
 **Kypto** is a modular Python framework for modern cryptography.
 It aims to provide tools for encryption, hashing, key management, and secure data handling in a structured and extensible way.
 
