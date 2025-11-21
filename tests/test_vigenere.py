@@ -1,6 +1,6 @@
 import pytest
 import string
-from krypto_lib.symmetric.vigenere import encrypt
+from krypto_lib.symmetric.classical.vigenere import encrypt
 
 # Test data for Vigenère cipher
 plaintext = "ATTACK AT DAWN!"

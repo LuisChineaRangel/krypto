@@ -1,5 +1,5 @@
 import pytest
-from krypto_lib.symmetric.chacha20 import encrypt, keystream_block
+from krypto_lib.symmetric.stream.chacha20 import encrypt, keystream_block
 from krypto_lib.utils import bytes_to_hex
 
 # Test data for ChaCha20
@@ -57,7 +57,6 @@ def test_encrypt_deterministic():
 def test_encrypt_xor_property():
     ciphertext = encrypt(plaintext, key, nonce, initial_counter)
     # XOR plaintext ^ keystream = ciphertext
-    from krypto_lib.symmetric.chacha20 import keystream_block
     ks = keystream_block(key, initial_counter, nonce)
     # Only the first bytes, because the block is 64 bytes
     ct_manual = bytes([p ^ k for p, k in zip(plaintext, ks)])

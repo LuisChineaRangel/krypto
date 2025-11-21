@@ -59,7 +59,7 @@ def bytes_to_hex(b:bytes) -> str:
     """
     return b.hex()
 
-def resize_bytes(b:bytes, size:int, pad_byte:bytes=b'\x00', from_left:bool=False) -> bytes:
+def pad_bytes(b:bytes, size:int, pad_byte:bytes=b'\x00', from_left:bool=False) -> bytes:
     """Resizes a byte sequence to the specified size by padding.
     Args:
         b (bytes): The byte sequence to resize.

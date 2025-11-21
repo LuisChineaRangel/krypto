@@ -1,5 +1,5 @@
 import pytest
-from krypto_lib.symmetric.arc4 import ksa, prga, arc4
+from krypto_lib.symmetric.stream.arc4 import ksa, prga, arc4
 
 def test_ksa_length():
     key = b"testkey"
