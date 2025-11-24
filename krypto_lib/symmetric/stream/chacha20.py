@@ -4,7 +4,7 @@ from krypto_lib.utils import bytes_to_int, int_to_bytes
 CHACHA20_CONSTANT = b"expand 32-byte k"
 
 
-def encrypt(
+def chacha20(
     plaintext: str | bytes,
     key: bytes,
     nonce: bytes,

@@ -1,3 +1,15 @@
+def arc4(data: bytes, key: bytes) -> bytes:
+    """Encrypts or decrypts data using the RC4 (ARC4) cipher.
+    Args:
+        data (bytes): The input data to encrypt or decrypt.
+        key (bytes): The encryption key as bytes.
+    Returns:
+        bytes: The encrypted or decrypted output data.
+    """
+    s = ksa(key)
+    keystream = prga(s, len(data))
+    return bytes([data_byte ^ next(keystream) for data_byte in data])
+
 def ksa(key: bytes) -> list:
     """Key Scheduling Algorithm (KSA) for RC4 cipher.
     Args:
@@ -29,15 +41,3 @@ def prga(s: list, data_length: int):
         s[i], s[j] = s[j], s[i]
         K = s[(s[i] + s[j]) % 256]
         yield K
-
-def arc4(data: bytes, key: bytes) -> bytes:
-    """Encrypts or decrypts data using the RC4 (ARC4) cipher.
-    Args:
-        data (bytes): The input data to encrypt or decrypt.
-        key (bytes): The encryption key as bytes.
-    Returns:
-        bytes: The encrypted or decrypted output data.
-    """
-    s = ksa(key)
-    keystream = prga(s, len(data))
-    return bytes([data_byte ^ next(keystream) for data_byte in data])
