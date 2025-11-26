@@ -46,7 +46,7 @@ def chacha20(
 
 
 def keystream_block(
-    key: bytes, counter: int, nonce: bytes, endian: Literal['big', 'little'] = "little"
+    key: bytes, counter: int, nonce: bytes, endian: Literal["big", "little"] = "little"
 ) -> bytes:
     """Generates a keystream block for the given key, counter, and nonce.
     Args:
@@ -64,7 +64,7 @@ def keystream_block(
 
 
 def init_state(
-    key: bytes, counter: int, nonce: bytes, endian: Literal['big', 'little'] = "little"
+    key: bytes, counter: int, nonce: bytes, endian: Literal["big", "little"] = "little"
 ) -> list[int]:
     """Initializes the ChaCha20 state matrix.
     Args:

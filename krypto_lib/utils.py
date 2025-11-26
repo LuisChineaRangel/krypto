@@ -2,7 +2,8 @@ import string
 import random
 from typing import Literal
 
-def str_to_bytes(s:str, encoding:str='utf-8') -> bytes:
+
+def str_to_bytes(s: str, encoding: str = "utf-8") -> bytes:
     """Converts a string to bytes using the specified encoding.
     Args:
         s (str): The input string to convert.
@@ -12,7 +13,8 @@ def str_to_bytes(s:str, encoding:str='utf-8') -> bytes:
     """
     return s.encode(encoding)
 
-def bytes_to_str(b:bytes, encoding:str='utf-8') -> str:
+
+def bytes_to_str(b: bytes, encoding: str = "utf-8") -> str:
     """Converts bytes to a string using the specified encoding.
     Args:
         b (bytes): The input bytes to convert.
@@ -22,8 +24,11 @@ def bytes_to_str(b:bytes, encoding:str='utf-8') -> str:
     """
     return b.decode(encoding)
 
-def int_to_bytes(n:int, length:int, endian:Literal['big', 'little']='big') -> bytes:
-    """ Converts an integer to bytes of specified length and endianness.
+
+def int_to_bytes(
+    n: int, length: int, endian: Literal["big", "little"] = "big"
+) -> bytes:
+    """Converts an integer to bytes of specified length and endianness.
     Args:
         n (int): The integer to convert.
         length (int): The length of the resulting byte sequence.
@@ -33,7 +38,8 @@ def int_to_bytes(n:int, length:int, endian:Literal['big', 'little']='big') -> by
     """
     return n.to_bytes(length, endian)
 
-def bytes_to_int(b:bytes, endian:Literal['big', 'little']='big') -> int:
+
+def bytes_to_int(b: bytes, endian: Literal["big", "little"] = "big") -> int:
     """Converts bytes to an integer with specified endianness.
     Args:
         b (bytes): The byte sequence to convert.
@@ -43,7 +49,8 @@ def bytes_to_int(b:bytes, endian:Literal['big', 'little']='big') -> int:
     """
     return int.from_bytes(b, endian)
 
-def hex_to_bytes(hex_str:str) -> bytes:
+
+def hex_to_bytes(hex_str: str) -> bytes:
     """Converts a hexadecimal string to bytes.
     Args:
         hex_str (str): The hexadecimal string to convert.
@@ -52,7 +59,8 @@ def hex_to_bytes(hex_str:str) -> bytes:
     """
     return bytes.fromhex(hex_str)
 
-def bytes_to_hex(b:bytes) -> str:
+
+def bytes_to_hex(b: bytes) -> str:
     """Converts bytes to a hexadecimal string.
     Args:
         b (bytes): The byte sequence to convert.
@@ -61,7 +69,10 @@ def bytes_to_hex(b:bytes) -> str:
     """
     return b.hex()
 
-def pad_bytes(b:bytes, size:int, pad_byte:bytes=b'\x00', from_left:bool=False) -> bytes:
+
+def pad_bytes(
+    b: bytes, size: int, pad_byte: bytes = b"\x00", from_left: bool = False
+) -> bytes:
     """Resizes a byte sequence to the specified size by padding.
     Args:
         b (bytes): The byte sequence to resize.
@@ -77,6 +88,7 @@ def pad_bytes(b:bytes, size:int, pad_byte:bytes=b'\x00', from_left:bool=False) -
         raise ValueError("Byte sequence is longer than the desired size")
     padding = pad_byte * (size - len(b))
     return (padding + b) if from_left else (b + padding)
+
 
 def fast_pow(base: int, exponent: int, modulus: int) -> int:
     """Computes (base ** exponent) % modulus using the method of exponentiation by squaring.
@@ -95,6 +107,7 @@ def fast_pow(base: int, exponent: int, modulus: int) -> int:
         exponent = exponent >> 1
         base = (base * base) % modulus
     return result
+
 
 def lehman_peralta_primality_test(n: int, k: int = 5) -> bool:
     """Perform the Lehman-Peralta primality test on a given integer n.
@@ -118,6 +131,7 @@ def lehman_peralta_primality_test(n: int, k: int = 5) -> bool:
             return False
     return True
 
+
 def euclid_extended(a: int, b: int) -> tuple[int, int, int]:
     """Computes the Extended Euclidean Algorithm.
     This function applies the extended version of Euclid's algorithm to compute:
@@ -140,40 +154,50 @@ def euclid_extended(a: int, b: int) -> tuple[int, int, int]:
     y = x1
     return gcd, x, y
 
-def text_to_int_blocks(text: str, block_size: int, alphabet: str = string.ascii_uppercase) -> list[int]:
+
+def str_to_int_blocks(
+    text: str, block_size: int, alphabet: str = string.ascii_uppercase
+) -> tuple[list[int], list[int]]:
     """Encodes text into integer blocks based on the provided alphabet and block size.
     Args:
         text (str): The input text to convert.
         block_size (int): The size of each block.
         alphabet (str): The alphabet used for encoding the text.
     Returns:
-        list[int]: A list of integers representing the encoded blocks.
+        tuple[list[int], list[int]]: A tuple containing:
+            - A list of integers representing the encoded blocks.
+            - A list of integers representing the lengths of each block.
     """
     base = len(alphabet)
     blocks = []
+    lengths = []
     for i in range(0, len(text), block_size):
-        block = text[i:i + block_size]
+        block = text[i : i + block_size]
         block_value = 0
         for j, char in enumerate(block):
             index = alphabet.index(char)
             block_value += index * (base ** (len(block) - j - 1))
         blocks.append(block_value)
-    return blocks
+        lengths.append(len(block))
+    return blocks, lengths
 
-def int_blocks_to_text(blocks: list[int], block_size: int, alphabet: str = string.ascii_uppercase) -> str:
+
+def int_blocks_to_str(
+    blocks: list[int], lengths: list[int], alphabet: str = string.ascii_uppercase
+) -> str:
     """Decodes integer blocks back into text based on the provided alphabet and block size.
     Args:
         blocks (list[int]): The list of integer blocks to decode.
-        block_size (int): The size of each block.
+        lengths (list[int]): The lengths of each block.
         alphabet (str): The alphabet used for decoding the text.
     Returns:
         str: The decoded text.
     """
     base = len(alphabet)
-    text = ''
-    for block in blocks:
-        block_text = ''
-        for _ in range(block_size):
+    text = ""
+    for block, length in zip(blocks, lengths):
+        block_text = ""
+        for _ in range(length):
             index = block % base
             block_text = alphabet[index] + block_text
             block //= base

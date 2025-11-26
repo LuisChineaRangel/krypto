@@ -1,3 +1,6 @@
+from krypto_lib.prng.prga import prga
+
+
 def arc4(data: bytes, key: bytes) -> bytes:
     """Encrypts or decrypts data using the RC4 (ARC4) cipher.
     Args:
@@ -9,6 +12,7 @@ def arc4(data: bytes, key: bytes) -> bytes:
     s = ksa(key)
     keystream = prga(s, len(data))
     return bytes([data_byte ^ next(keystream) for data_byte in data])
+
 
 def ksa(key: bytes) -> list:
     """Key Scheduling Algorithm (KSA) for RC4 cipher.
@@ -24,20 +28,3 @@ def ksa(key: bytes) -> list:
         j = (j + s[i] + key[i % key_length]) % 256
         s[i], s[j] = s[j], s[i]
     return s
-
-def prga(s: list, data_length: int):
-    """Pseudo-Random Generation Algorithm (PRGA) for RC4 cipher.
-    Args:
-        s (list): The state array s from KSA.
-        data_length (int): The length of the data to encrypt/decrypt.
-    Yields:
-        int: The next byte of the keystream.
-    """
-    i = 0
-    j = 0
-    for _ in range(data_length):
-        i = (i + 1) % 256
-        j = (j + s[i]) % 256
-        s[i], s[j] = s[j], s[i]
-        K = s[(s[i] + s[j]) % 256]
-        yield K

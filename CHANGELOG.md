@@ -5,6 +5,21 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ---
 
+## [0.1.3] - 2025-11-26
+
+### Added
+
+- Implemented GPS L1C/A signal simulator in `krypto_lib/prng/gps_l1ca.py`:
+  - Functions to generate C/A codes for GPS satellites.
+- Added test cases for GPS L1C/A simulator in `tests/test_gps_l1ca.py`.
+- Added RSA algorithm support for decryption in `krypto_lib/asymmetric/factorization/rsa.py`:
+  - Updated `rsa` function to handle both encryption and decryption based on a flag.
+- Implemented test cases for RSA decryption in `tests/test_rsa.py`.
+
+## Changes
+
+- PRGA moved to `krypto_lib/prng/prga.py` for better modularity.
+
 ## [0.1.2] - 2025-11-21
 
 ### Added
@@ -47,3 +62,5 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - This is the first release; only ChaCha20 is implemented.
 - Future releases will include additional symmetric and asymmetric ciphers, utilities, and enhanced testing.
+
+<!-- markdownlint-configure-file { "MD022": false, "MD024": false, "MD030": false, "MD032": false} -->
