@@ -2,6 +2,7 @@ import string
 import random
 from typing import Literal
 
+system_randomizer = random.SystemRandom()
 
 def str_to_bytes(s: str, encoding: str = "utf-8") -> bytes:
     """Converts a string to bytes using the specified encoding.
@@ -125,7 +126,7 @@ def lehman_peralta_primality_test(n: int, k: int = 5) -> bool:
         return False
 
     for _ in range(k):
-        a = random.randint(2, n - 2)
+        a = system_randomizer.randint(2, n - 2)
         x = pow(a, (n - 1) // 2, n)
         if x != 1 and x != n - 1:
             return False
