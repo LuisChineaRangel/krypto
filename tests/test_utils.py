@@ -2,28 +2,6 @@ import pytest
 import krypto_lib.utils as utils
 
 
-def test_str_to_bytes_and_back():
-    original_str = "Hello, Krypto!"
-    b = utils.str_to_bytes(original_str)
-    converted_str = utils.bytes_to_str(b)
-    assert original_str == converted_str
-
-
-def test_int_to_bytes_and_back():
-    original_int = 123456789
-    length = 4
-    b = utils.int_to_bytes(original_int, length, "big")
-    converted_int = utils.bytes_to_int(b, "big")
-    assert original_int == converted_int
-
-
-def test_hex_to_bytes_and_back():
-    original_hex = "deadbeef"
-    b = utils.hex_to_bytes(original_hex)
-    converted_hex = utils.bytes_to_hex(b)
-    assert original_hex == converted_hex
-
-
 def test_pad_bytes():
     original_bytes = b"\x01\x02\x03"
     resized_left = utils.pad_bytes(original_bytes, 5, pad_byte=b"\x00", from_left=True)
@@ -45,6 +23,7 @@ def test_fast_pow():
     assert utils.fast_pow(10, 0, 6) == 1  # Any number to the power of 0 is 1
     assert utils.fast_pow(5, 3, 13) == 8  # 5^3 % 13 = 125 % 13 = 8
 
+
 def test_lehman_peralta_primality_test():
     # Test cases for number 1
     assert utils.lehman_peralta_primality_test(1) == False
@@ -58,6 +37,7 @@ def test_lehman_peralta_primality_test():
     composites = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20]
     for composite in composites:
         assert utils.lehman_peralta_primality_test(composite) == False
+
 
 def test_euclid_extended():
     a, b = 30, 12

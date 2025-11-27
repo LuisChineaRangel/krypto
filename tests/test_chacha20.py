@@ -1,6 +1,5 @@
 import pytest
 from krypto_lib.symmetric.stream.chacha20 import chacha20, keystream_block
-from krypto_lib.utils import bytes_to_hex
 
 # Test data for ChaCha20
 key = bytes.fromhex(
@@ -36,7 +35,7 @@ def test_encrypt_with_string_input():
     assert len(ciphertext) == len(plaintext)
 
 def test_encrypt_with_hex_input():
-    hex_plaintext = bytes_to_hex(plaintext)
+    hex_plaintext = plaintext.hex()
     ciphertext = chacha20(
         hex_plaintext, key, nonce, initial_counter, hex_input=True
     )

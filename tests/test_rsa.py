@@ -1,8 +1,8 @@
 import math
 import pytest
 import string
-from krypto_lib.utils import int_blocks_to_str
-from krypto_lib.asymmetric.factorization.rsa import rsa
+from krypto_lib.utils import int_blocks_to_str, str_to_int_blocks
+from krypto_lib.asymmetric.factorization.rsa import rsa, sign, verify_signature
 
 plaintext = "HELLO"
 e = 65537
@@ -33,5 +33,24 @@ def test_rsa_invalid_primes():
         rsa(plaintext, e, 61, 54, string.ascii_uppercase)
 
 def test_rsa_non_coprime_e_phi():
+    plaintext_blocks, _ = str_to_int_blocks(plaintext, block_size, string.ascii_uppercase)
+    # 12 is not coprime with φ(61*53)=3120
     with pytest.raises(ValueError, match="e and φ\\(n\\) are not coprime."):
-        rsa(plaintext, 12, 61, 53, string.ascii_uppercase)  # 12 is not coprime with φ(61*53)=3120
+        rsa(plaintext_blocks, 12, 61, 53, string.ascii_uppercase, decrypt=True)
+
+def test_rsa_signing():
+    message = "HELLO"
+    signature = sign(message, e, p, q)
+    assert isinstance(signature, int)
+    assert signature != 0
+
+def test_rsa_signature_verification():
+    message = "HELLO"
+    signature = sign(message, e, p, q)
+    is_valid = verify_signature(message, signature, e, p, q)
+    assert is_valid
+
+    # Test with an altered message
+    altered_message = "HELLO!"
+    is_valid_altered = verify_signature(altered_message, signature, e, p, q)
+    assert not is_valid_altered
