@@ -24,7 +24,8 @@ It aims to provide tools for encryption, hashing, key management, and secure dat
 - Project just started (v0.1.2)
 - Initial project structure in place
 - Core modules and basic setup planned
-- Vigenère, ARC4, and ChaCha20 ciphers implemented
+- RSA, Vigenère, ARC4, and ChaCha20 ciphers implemented
+- GPS L1C/A signal simulator implemented
 - Basic unit tests for implemented ciphers
 
 ---
@@ -33,7 +34,10 @@ It aims to provide tools for encryption, hashing, key management, and secure dat
 
 The project is organized into the following main directories:
 
-- `kypto_lib/`: Core library code for cryptographic operations.
+- `krypto_lib/`: Core library code for cryptographic operations.
+- `krypto_lib/asymmetric/`: Asymmetric cryptography algorithms (e.g., RSA, ECC).
+- `krypto_lib/symmetric/`: Symmetric cryptography algorithms (e.g., AES, ChaCha20).
+- `krypto_lib/prng/`: Pseudorandom number generators (e.g., ARC4).
 - `tests/`: Unit and integration tests for the library.
 - `cli/`: Command-line interface tools for interacting with the library.
 - `api/`: RESTful API endpoints for remote cryptographic services.

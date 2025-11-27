@@ -4,6 +4,7 @@ source = krypto_lib
 parallel = True
 omit =
     tests/*
+    **/__init__.py
 
 [report]
 show_missing = True

@@ -1,33 +1,51 @@
 import pytest
-from krypto_lib.utils import str_to_bytes, bytes_to_str, int_to_bytes, bytes_to_int, hex_to_bytes, bytes_to_hex, pad_bytes
+import krypto_lib.utils as utils
 
-def test_str_to_bytes_and_back():
-    original_str = "Hello, Krypto!"
-    b = str_to_bytes(original_str)
-    converted_str = bytes_to_str(b)
-    assert original_str == converted_str
-
-def test_int_to_bytes_and_back():
-    original_int = 123456789
-    length = 4
-    b = int_to_bytes(original_int, length, 'big')
-    converted_int = bytes_to_int(b, 'big')
-    assert original_int == converted_int
-
-def test_hex_to_bytes_and_back():
-    original_hex = "deadbeef"
-    b = hex_to_bytes(original_hex)
-    converted_hex = bytes_to_hex(b)
-    assert original_hex == converted_hex
 
 def test_pad_bytes():
-    original_bytes = b'\x01\x02\x03'
-    resized_left = pad_bytes(original_bytes, 5, pad_byte=b'\x00', from_left=True)
-    resized_right = pad_bytes(original_bytes, 5, pad_byte=b'\x00', from_left=False)
+    original_bytes = b"\x01\x02\x03"
+    resized_left = utils.pad_bytes(original_bytes, 5, pad_byte=b"\x00", from_left=True)
+    resized_right = utils.pad_bytes(
+        original_bytes, 5, pad_byte=b"\x00", from_left=False
+    )
 
-    assert resized_left == b'\x00\x00\x01\x02\x03'
-    assert resized_right == b'\x01\x02\x03\x00\x00'
+    assert resized_left == b"\x00\x00\x01\x02\x03"
+    assert resized_right == b"\x01\x02\x03\x00\x00"
 
     # Test error on smaller size
     with pytest.raises(ValueError):
-        pad_bytes(original_bytes, 2)
+        utils.pad_bytes(original_bytes, 2)
+
+
+def test_fast_pow():
+    assert utils.fast_pow(2, 3, 5) == 3  # 2^3 % 5 = 8 % 5 = 3
+    assert utils.fast_pow(3, 4, 7) == 4  # 3^4 % 7 = 81 % 7 = 4
+    assert utils.fast_pow(10, 0, 6) == 1  # Any number to the power of 0 is 1
+    assert utils.fast_pow(5, 3, 13) == 8  # 5^3 % 13 = 125 % 13 = 8
+
+
+def test_lehman_peralta_primality_test():
+    # Test cases for number 1
+    assert utils.lehman_peralta_primality_test(1) == False
+
+    # Test known primes
+    primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+    for prime in primes:
+        assert utils.lehman_peralta_primality_test(prime) == True
+
+    # Test known composites
+    composites = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20]
+    for composite in composites:
+        assert utils.lehman_peralta_primality_test(composite) == False
+
+
+def test_euclid_extended():
+    a, b = 30, 12
+    gcd, x, y = utils.euclid_extended(a, b)
+    assert gcd == 6
+    assert a * x + b * y == gcd
+
+    a, b = 101, 23
+    gcd, x, y = utils.euclid_extended(a, b)
+    assert gcd == 1
+    assert a * x + b * y == gcd

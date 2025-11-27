@@ -1,10 +1,9 @@
 from typing import Literal
-from krypto_lib.utils import bytes_to_int, int_to_bytes
 
 CHACHA20_CONSTANT = b"expand 32-byte k"
 
 
-def encrypt(
+def chacha20(
     plaintext: str | bytes,
     key: bytes,
     nonce: bytes,
@@ -46,7 +45,7 @@ def encrypt(
 
 
 def keystream_block(
-    key: bytes, counter: int, nonce: bytes, endian: Literal['big', 'little'] = "little"
+    key: bytes, counter: int, nonce: bytes, endian: Literal["big", "little"] = "little"
 ) -> bytes:
     """Generates a keystream block for the given key, counter, and nonce.
     Args:
@@ -59,12 +58,12 @@ def keystream_block(
     """
     state = init_state(key, counter, nonce, endian)
     block = chacha20_block(state)
-    keystream = b"".join(int_to_bytes(word, 4, endian) for word in block)
+    keystream = b"".join(word.to_bytes(4, endian) for word in block)
     return keystream
 
 
 def init_state(
-    key: bytes, counter: int, nonce: bytes, endian: Literal['big', 'little'] = "little"
+    key: bytes, counter: int, nonce: bytes, endian: Literal["big", "little"] = "little"
 ) -> list[int]:
     """Initializes the ChaCha20 state matrix.
     Args:
@@ -83,11 +82,11 @@ def init_state(
         raise ValueError("Counter must be a 32-bit unsigned integer")
 
     constants = [
-        bytes_to_int(CHACHA20_CONSTANT[i : i + 4], endian) for i in range(0, 16, 4)
+        int.from_bytes(CHACHA20_CONSTANT[i : i + 4], endian) for i in range(0, 16, 4)
     ]
-    key_words = [bytes_to_int(key[i : i + 4], endian) for i in range(0, 32, 4)]
-    counter_word = bytes_to_int(int_to_bytes(counter, 4, endian), endian)
-    nonce_words = [bytes_to_int(nonce[i : i + 4], endian) for i in range(0, 12, 4)]
+    key_words = [int.from_bytes(key[i : i + 4], endian) for i in range(0, 32, 4)]
+    counter_word = int.from_bytes(counter.to_bytes(4, endian), endian)
+    nonce_words = [int.from_bytes(nonce[i : i + 4], endian) for i in range(0, 12, 4)]
 
     state = constants + key_words + [counter_word] + nonce_words
     return state

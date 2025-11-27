@@ -1,6 +1,6 @@
 [project]
 name = "krypto"
-version = "0.1.2"
+version = "0.1.3"
 description = "All-in-one Python framework for modern cryptography"
 authors = [
     { name = "Luis Chinea Rangel", email = "luischinearangel@gmail.com" }

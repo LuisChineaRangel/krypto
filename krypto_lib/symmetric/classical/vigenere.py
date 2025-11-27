@@ -1,6 +1,12 @@
 import string
 
-def encrypt(plaintext: str, key: str, alphabet: str = string.ascii_uppercase, reverse: bool = False) -> str:
+
+def vigenere(
+    plaintext: str,
+    key: str,
+    alphabet: str = string.ascii_uppercase,
+    reverse: bool = False,
+) -> str:
     """Encrypts the given plaintext using the Vigenère cipher with the provided key and alphabet.
     Args:
         plaintext (str): The input plaintext to encrypt.
@@ -27,4 +33,4 @@ def encrypt(plaintext: str, key: str, alphabet: str = string.ascii_uppercase, re
             key_index += 1
         else:
             ciphertext.append(char)
-    return ''.join(ciphertext)
+    return "".join(ciphertext)
