@@ -25,6 +25,56 @@ def pad_bytes(
     return (padding + b) if from_left else (b + padding)
 
 
+def str_to_int_blocks(
+    text: str, block_size: int, alphabet: str = string.ascii_uppercase
+) -> tuple[list[int], list[int]]:
+    """Encodes text into integer blocks based on the provided alphabet and block size.
+    Args:
+        text (str): The input text to convert.
+        block_size (int): The size of each block.
+        alphabet (str): The alphabet used for encoding the text.
+    Returns:
+        tuple[list[int], list[int]]: A tuple containing:
+            - A list of integers representing the encoded blocks.
+            - A list of integers representing the lengths of each block.
+    """
+    base = len(alphabet)
+    blocks = []
+    lengths = []
+    for i in range(0, len(text), block_size):
+        block = text[i : i + block_size]
+        block_value = 0
+        for j, char in enumerate(block):
+            index = alphabet.index(char)
+            block_value += index * (base ** (len(block) - j - 1))
+        blocks.append(block_value)
+        lengths.append(len(block))
+    return blocks, lengths
+
+
+def int_blocks_to_str(
+    blocks: list[int], lengths: list[int], alphabet: str = string.ascii_uppercase
+) -> str:
+    """Decodes integer blocks back into text based on the provided alphabet and block size.
+    Args:
+        blocks (list[int]): The list of integer blocks to decode.
+        lengths (list[int]): The lengths of each block.
+        alphabet (str): The alphabet used for decoding the text.
+    Returns:
+        str: The decoded text.
+    """
+    base = len(alphabet)
+    text = ""
+    for block, length in zip(blocks, lengths):
+        block_text = ""
+        for _ in range(length):
+            index = block % base
+            block_text = alphabet[index] + block_text
+            block //= base
+        text += block_text
+    return text
+
+
 def fast_pow(base: int, exponent: int, modulus: int) -> int:
     """Computes (base ** exponent) % modulus using the method of exponentiation by squaring.
     Args:
@@ -90,51 +140,70 @@ def euclid_extended(a: int, b: int) -> tuple[int, int, int]:
     return gcd, x, y
 
 
-def str_to_int_blocks(
-    text: str, block_size: int, alphabet: str = string.ascii_uppercase
-) -> tuple[list[int], list[int]]:
-    """Encodes text into integer blocks based on the provided alphabet and block size.
+def gf2_multiply(a: int, b: int, modulus: int = 0x11B, n=8) -> int:
+    """Multiplies two polynomials in any GF(2^n).
     Args:
-        text (str): The input text to convert.
-        block_size (int): The size of each block.
-        alphabet (str): The alphabet used for encoding the text.
-    Returns:
-        tuple[list[int], list[int]]: A tuple containing:
-            - A list of integers representing the encoded blocks.
-            - A list of integers representing the lengths of each block.
+        a (int): The first polynomial as an integer.
+        b (int): The second polynomial as an integer.
+        modulus (int, optional): The irreducible polynomial for GF(2^n). Defaults to 0x11B.
+        n (int, optional): The degree of the field. Defaults to 8.
     """
-    base = len(alphabet)
-    blocks = []
-    lengths = []
-    for i in range(0, len(text), block_size):
-        block = text[i : i + block_size]
-        block_value = 0
-        for j, char in enumerate(block):
-            index = alphabet.index(char)
-            block_value += index * (base ** (len(block) - j - 1))
-        blocks.append(block_value)
-        lengths.append(len(block))
-    return blocks, lengths
+    a = int(a)
+    b = int(b)
+    p = 0
+    for _ in range(n):
+        if b & 1:
+            p ^= a
+        high_bit_set = a & 0x80
+        a <<= 1
+        if high_bit_set:
+            a ^= modulus
+        a &= 0xFF
+        b >>= 1
+    return p
 
 
-def int_blocks_to_str(
-    blocks: list[int], lengths: list[int], alphabet: str = string.ascii_uppercase
-) -> str:
-    """Decodes integer blocks back into text based on the provided alphabet and block size.
+def gf2_pow(base: int, exponent: int, modulus: int = 0x11B, n=8) -> int:
+    """Computes (base ** exponent) in GF(2^n) using the method of exponentiation by squaring.
     Args:
-        blocks (list[int]): The list of integer blocks to decode.
-        lengths (list[int]): The lengths of each block.
-        alphabet (str): The alphabet used for decoding the text.
+        base (int): The base polynomial as an integer.
+        exponent (int): The exponent integer.
+        modulus (int, optional): The irreducible polynomial for GF(2^n). Defaults to 0x11B.
+        n (int, optional): The degree of the field. Defaults to 8.
     Returns:
-        str: The decoded text.
+        int: The result of (base ** exponent) in GF(2^n).
     """
-    base = len(alphabet)
-    text = ""
-    for block, length in zip(blocks, lengths):
-        block_text = ""
-        for _ in range(length):
-            index = block % base
-            block_text = alphabet[index] + block_text
-            block //= base
-        text += block_text
-    return text
+    base = int(base)
+    exponent = int(exponent)
+    result = 1
+    base = base % modulus
+    while exponent > 0:
+        if (exponent % 2) == 1:
+            result = gf2_multiply(result, base, modulus, n)
+        exponent = exponent >> 1
+        base = gf2_multiply(base, base, modulus, n)
+    return result
+
+
+def gf2_inverse(a: int, modulus: int = 0x11B, n=8) -> int:
+    """Finds the multiplicative inverse of a polynomial in GF(2^n).
+    Args:
+        a (int): The polynomial to find the inverse for.
+        modulus (int, optional): The irreducible polynomial for GF(2^n). Defaults to 0x11B.
+        n (int, optional): The degree of the field. Defaults to 8.
+    Returns:
+        int: The multiplicative inverse of a in GF(2^n).
+    """
+    a = int(a)
+    if a == 0:
+        raise ValueError("Zero does not have a multiplicative inverse in GF(2^n).")
+
+    exp = (1 << n) - 2
+    result = 1
+    base = a
+    while exp:
+        if exp & 1:
+            result = gf2_multiply(result, base, modulus, n)
+        base = gf2_multiply(base, base, modulus, n)
+        exp >>= 1
+    return result
