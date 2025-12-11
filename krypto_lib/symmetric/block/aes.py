@@ -68,30 +68,30 @@ def aes(plaintext: bytes, key: bytes) -> bytes:
 
 
 def key_expansion(key: bytes) -> ArrayBytes:
-    Nk = len(key) // 4
-    Nr = Nk + 6
-    Nb = 4
+    nk = len(key) // 4
+    nr = nk + 6
+    nb = 4
     # Define kex schedule initialization
     key_schedule = [
-        np.array([key[4 * c + r] for r in range(4)], dtype=np.uint8) for c in range(Nk)
+        np.array([key[4 * c + r] for r in range(4)], dtype=np.uint8) for c in range(nk)
     ]
 
-    for i in range(Nk, Nb * (Nr + 1)):
+    for i in range(nk, nb * (nr + 1)):
         temp = key_schedule[i - 1].copy()
 
-        if i % Nk == 0:
+        if i % nk == 0:
             # RotWord
             temp = np.roll(temp, -1)
             # SubWord usando SBOX
             temp = sub_bytes(temp)
             # XOR con Rcon
-            temp[0] ^= RC[i // Nk - 1]
+            temp[0] ^= RC[i // nk - 1]
 
-        elif Nk > 6 and i % Nk == 4:
+        elif nk > 6 and i % nk == 4:
             temp = sub_bytes(temp)
 
-        # XOR con la palabra Nk posiciones antes
-        word = key_schedule[i - Nk] ^ temp
+        # XOR con la palabra nk posiciones antes
+        word = key_schedule[i - nk] ^ temp
         key_schedule.append(word)
     return np.array(key_schedule, dtype=np.uint8).reshape(-1, 4, 4).transpose(0, 2, 1)
 
