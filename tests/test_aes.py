@@ -6,7 +6,7 @@ from krypto_lib.symmetric.block.aes import (
     mix_columns,
     add_round_key,
     key_expansion,
-    encrypt,
+    aes,
 )
 
 
@@ -54,7 +54,7 @@ def test_sub_bytes():
         dtype=np.uint8,
     )
     expected = sbox[input]
-    output = sub_bytes(input, sbox)
+    output = sub_bytes(input)
     assert len(output) == 4
     assert len(output) == len(expected)
     assert np.array_equal(output, expected)
@@ -88,22 +88,13 @@ def test_shift_rows():
 def test_mix_columns():
     input = np.array(
         [
-            [0xDB, 0x13, 0x53, 0x45],
-            [0xF2, 0x0A, 0x22, 0x5C],
-            [0x01, 0x01, 0x01, 0x01],
-            [0xC6, 0xC6, 0xC6, 0xC6],
+            [0xDB, 0xF2, 0x01, 0xC6],
+            [0x13, 0x0A, 0x01, 0xC6],
+            [0x53, 0x22, 0x01, 0xC6],
+            [0x45, 0x5C, 0x01, 0xC6],
         ],
         dtype=np.uint8,
     )
-    # expected = np.array(
-    #     [
-    #         [0x8E, 0x4D, 0xA1, 0xBC],
-    #         [0x9F, 0xDC, 0x58, 0x9D],
-    #         [0x01, 0x01, 0x01, 0x01],
-    #         [0xC6, 0xC6, 0xC6, 0xC6],
-    #     ],
-    #     dtype=np.uint8,
-    # )
     expected = np.array(
         [
             [0x8E, 0x9F, 0x01, 0xC6],
@@ -114,66 +105,87 @@ def test_mix_columns():
         dtype=np.uint8,
     )
     output = mix_columns(input)
-    print("Expected:\n")
-    for row in expected:
-        print([hex(byte) for byte in row])
-    print("Output:\n")
-    for row in output:
-        print([hex(byte) for byte in row])
     assert len(output) == 4
     assert len(output) == len(expected)
     assert np.array_equal(output, expected)
 
 
-# def test_add_round_key():
-#     input_state = [
-#         [0x32, 0x88, 0x31, 0xE0],
-#         [0x43, 0x5A, 0x31, 0x37],
-#         [0xF6, 0x30, 0x98, 0x07],
-#         [0xA8, 0x8D, 0xA2, 0x34],
-#     ]
-#     round_key = [
-#         [0xA0, 0xFA, 0xFE, 0x17],
-#         [0x88, 0x54, 0x2C, 0xB1],
-#         [0x23, 0xA3, 0x39, 0x39],
-#         [0x2A, 0x6C, 0x76, 0x05],
-#     ]
-#     expected_state = [
-#         [0x92, 0x72, 0xCF, 0xF7],
-#         [0xCB, 0x0E, 0x1D, 0x86],
-#         [0xD5, 0x93, 0xA1, 0x3E],
-#         [0x82, 0xE1, 0xD4, 0x31],
-#     ]
-#     output_state = add_round_key(input_state, round_key)
-#     assert output_state == expected_state
+def test_add_round_key():
+    input = np.array(
+        [
+            [0x32, 0x88, 0x31, 0xE0],
+            [0x43, 0x5A, 0x31, 0x37],
+            [0xF6, 0x30, 0x98, 0x07],
+            [0xA8, 0x8D, 0xA2, 0x34],
+        ],
+        dtype=np.uint8,
+    )
+    round_key = np.array(
+        [
+            [0xA0, 0xFA, 0xFE, 0x17],
+            [0x88, 0x54, 0x2C, 0xB1],
+            [0x23, 0xA3, 0x39, 0x39],
+            [0x2A, 0x6C, 0x76, 0x05],
+        ],
+        dtype=np.uint8,
+    )
+    expected = np.array(
+        [
+            [0x92, 0x72, 0xCF, 0xF7],
+            [0xCB, 0x0E, 0x1D, 0x86],
+            [0xD5, 0x93, 0xA1, 0x3E],
+            [0x82, 0xE1, 0xD4, 0x31],
+        ],
+        dtype=np.uint8,
+    )
+    output = add_round_key(input, round_key)
+    assert np.array_equal(output, expected)
 
 
-# def test_key_expansion():
-#     key = bytes.fromhex("2b7e151628aed2a6abf7158809cf4f3c")
-#     SBOX = generate_sbox()
-#     RC = [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36]
-#     # Only test the first 10 words of the key schedule
-#     expected_key_schedule = [
-#         [0x2B, 0x7E, 0x15, 0x16],
-#         [0x28, 0xAE, 0xD2, 0xA6],
-#         [0xAB, 0xF7, 0x15, 0x88],
-#         [0x09, 0xCF, 0x4F, 0x3C],
-#         [0xA0, 0xFA, 0xFE, 0x17],
-#         [0x88, 0x54, 0x2C, 0xB1],
-#         [0x23, 0xA3, 0x39, 0x39],
-#         [0x2A, 0x6C, 0x76, 0x05],
-#         [0xF2, 0xC2, 0x95, 0xF2],
-#         [0x7A, 0x96, 0xB9, 0x43],
-#     ]
-#     key_schedule = key_expansion(key, SBOX, RC)
-#     assert key_schedule[:10] == expected_key_schedule
-#     assert len(key_schedule) == 44  # AES-128 should produce 44 words
+def test_key_expansion():
+    key = bytes.fromhex("2b7e151628aed2a6abf7158809cf4f3c")
+    # Only test the first, second, and last round keys
+    expected = np.array(
+        [
+            [
+                [0x2B, 0x28, 0xAB, 0x09],
+                [0x7E, 0xAE, 0xF7, 0xCF],
+                [0x15, 0xD2, 0x15, 0x4F],
+                [0x16, 0xA6, 0x88, 0x3C],
+            ],
+            [
+                [0xA0, 0x88, 0x23, 0x2A],
+                [0xFA, 0x54, 0xA3, 0x6C],
+                [0xFE, 0x2C, 0x39, 0x76],
+                [0x17, 0xB1, 0x39, 0x05],
+            ],
+            [
+                [0xD0, 0xC9, 0xE1, 0xB6],
+                [0x14, 0xEE, 0x3F, 0x63],
+                [0xF9, 0x25, 0x0C, 0x0C],
+                [0xA8, 0x89, 0xC8, 0xA6],
+            ],
+        ],
+        dtype=np.uint8,
+    )
+    key_schedule = key_expansion(key)
+    assert np.array_equal(key_schedule[0], expected[0])
+    assert np.array_equal(key_schedule[1], expected[1])
+    assert np.array_equal(key_schedule[-1], expected[-1])
+    assert len(key_schedule) == 11  # AES-128 has 11 round keys
 
 
-# def test_aes_encryption():
-#     key = bytes.fromhex("2b7e151628aed2a6abf7158809cf4f3c")
-#     plaintext = bytes.fromhex("3243f6a8885a308d313198a2e0370734")
-#     expected_ciphertext = bytes.fromhex("3925841d02dc09fbdc118597196a0b32")
+def test_aes_encryption():
+    key = bytes.fromhex("2b7e151628aed2a6abf7158809cf4f3c")
+    plaintext = bytes.fromhex("3243f6a8885a308d313198a2e0370734")
+    expected_ciphertext = bytes.fromhex("3925841d02dc09fbdc118597196a0b32")
 
-#     ciphertext = encrypt(plaintext, key)
-#     assert ciphertext == expected_ciphertext
+    ciphertext = aes(plaintext, key)
+    assert ciphertext == expected_ciphertext
+
+    key = bytes.fromhex("5468617473206D79204B756E67204675")
+    plaintext = bytes.fromhex("54776F204F6E65204E696E652054776F")
+    expected_ciphertext = bytes.fromhex("29C3505F571420F6402299B31A02D73A")
+
+    ciphertext = aes(plaintext, key)
+    assert ciphertext == expected_ciphertext

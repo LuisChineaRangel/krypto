@@ -86,3 +86,5 @@ def test_gf2_inverse():
     ]
     for a, expected in inverse_cases:
         assert utils.gf2_inverse(a) == expected
+    with pytest.raises(ValueError):
+        utils.gf2_inverse(0x00)  # Inverse of 0 does not exist
