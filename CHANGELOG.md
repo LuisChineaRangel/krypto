@@ -5,6 +5,15 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ---
 
+## [0.1.4] - 2026-01-21
+
+### Added
+
+- Implemented AES (Advanced Encryption Standard) symmetric cipher in `krypto_lib/symmetric/block/aes.py`:
+  - Key expansion, SubBytes, ShiftRows, MixColumns, and AddRoundKey functions.
+  - Encryption function for 128-bit blocks with AES-128, AES-192, and AES-256 support.
+- Added test cases for AES in `tests/test_aes.py`.
+
 ## [0.1.3] - 2025-11-26
 
 ### Added

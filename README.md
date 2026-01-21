@@ -27,6 +27,16 @@ It aims to provide tools for encryption, hashing, key management, and secure dat
 - RSA, Vigenère, ARC4, and ChaCha20 ciphers implemented
 - GPS L1C/A signal simulator implemented
 - Basic unit tests for implemented ciphers
+- Symmetric Ciphers:
+  - AES (in progress)
+  - ChaCha20
+  - RC4 (ARC4)
+  - Vigenère Cipher
+- Asymmetric Ciphers:
+  - RSA
+- Pseudorandom Number Generators:
+  - PRGA of ARC4
+  - GPS C/A PRN Code Generator
 
 ---
 

@@ -189,3 +189,11 @@ def test_aes_encryption():
 
     ciphertext = aes(plaintext, key)
     assert ciphertext == expected_ciphertext
+
+    # 32 bytes key (AES-256)
+    key = bytes.fromhex("000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F")
+    plaintext = bytes.fromhex("00112233445566778899AABBCCDDEEFF")
+    expected_ciphertext = bytes.fromhex("8EA2B7CA516745BFEAFC49904B496089")
+
+    ciphertext = aes(plaintext, key)
+    assert ciphertext == expected_ciphertext

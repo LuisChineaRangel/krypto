@@ -46,10 +46,15 @@ SBOX = generate_sbox().flatten()
 
 
 def aes(plaintext: bytes, key: bytes) -> bytes:
+    if len(plaintext) != 16:
+        raise ValueError("Plaintext must be exactly 16 bytes (128 bits).")
+    if len(key) not in (16, 24, 32):
+        raise ValueError("Key length must follow AES standards (16, 24, or 32 bytes).")
+
     key_schedule = key_expansion(key)
 
     # Initial round
-    state = np.array([[plaintext[4*c + r] for c in range(4)] for r in range(4)], dtype=np.uint8)
+    state = np.frombuffer(plaintext, dtype=np.uint8).reshape(4, 4).T
     state = add_round_key(state, key_schedule[0])
 
     # Main rounds
@@ -64,47 +69,44 @@ def aes(plaintext: bytes, key: bytes) -> bytes:
     state = shift_rows(state)
     state = add_round_key(state, key_schedule[-1])
 
-    return bytes([state[r, c] for c in range(4) for r in range(4)])
+    return state.T.tobytes()
 
 
 def key_expansion(key: bytes) -> ArrayBytes:
     nk = len(key) // 4
     nr = nk + 6
     nb = 4
-    # Define kex schedule initialization
-    key_schedule = [
-        np.array([key[4 * c + r] for r in range(4)], dtype=np.uint8) for c in range(nk)
-    ]
 
-    for i in range(nk, nb * (nr + 1)):
+    # Define kex schedule initialization
+    total_words = nb * (nr + 1)
+    key_schedule = np.zeros((total_words, 4), dtype=np.uint8)
+
+    for i in range(nk):
+        key_schedule[i] = np.array([key[4 * i + r] for r in range(4)], dtype=np.uint8)
+
+    for i in range(nk, total_words):
         temp = key_schedule[i - 1].copy()
 
         if i % nk == 0:
-            # RotWord
-            temp = np.roll(temp, -1)
-            # SubWord usando SBOX
-            temp = sub_bytes(temp)
-            # XOR con Rcon
+            # RotWord + SubWord + Rcon
+            temp = sub_bytes(np.roll(temp, -1))
             temp[0] ^= RC[i // nk - 1]
-
         elif nk > 6 and i % nk == 4:
             temp = sub_bytes(temp)
-
         # XOR con la palabra nk posiciones antes
-        word = key_schedule[i - nk] ^ temp
-        key_schedule.append(word)
+        key_schedule[i] = key_schedule[i - nk] ^ temp
     return np.array(key_schedule, dtype=np.uint8).reshape(-1, 4, 4).transpose(0, 2, 1)
 
 
 def sub_bytes(state: ArrayBytes) -> ArrayBytes:
-    return np.array([SBOX[byte] for byte in state], dtype=np.uint8)
+    return SBOX[state].astype(np.uint8)
 
 
 def shift_rows(state: ArrayBytes) -> ArrayBytes:
-    new_state = state.copy()
+    res = state.copy()
     for r in range(1, 4):
-        new_state[r] = np.roll(state[r], -r)
-    return new_state
+        res[r] = np.roll(res[r], -r)
+    return res
 
 
 def mix_columns(state: ArrayBytes) -> ArrayBytes:
