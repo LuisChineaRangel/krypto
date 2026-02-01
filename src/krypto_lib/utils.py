@@ -147,6 +147,8 @@ def gf2_multiply(a: int, b: int, modulus: int = 0x11B, n=8) -> int:
         b (int): The second polynomial as an integer.
         modulus (int, optional): The irreducible polynomial for GF(2^n). Defaults to 0x11B.
         n (int, optional): The degree of the field. Defaults to 8.
+    Returns:
+        int: The result of the multiplication in GF(2^n).
     """
     a = int(a)
     b = int(b)

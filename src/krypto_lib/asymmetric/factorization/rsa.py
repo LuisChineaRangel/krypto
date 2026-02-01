@@ -44,12 +44,13 @@ def rsa(
 
 def sign(message: str, e: int, p: int, q: int) -> int:
     """Generates a digital signature for a message using RSA signing.
+
     Args:
         message (str): The message to sign.
-        d (int): The pr
-        ivate exponent.
+        e (int): The public exponent (used to derive the private exponent).
         p (int): The first prime number.
         q (int): The second prime number.
+
     Returns:
         int: The digital signature as an integer.
     """

@@ -7,6 +7,8 @@ from krypto_lib.symmetric.block.aes import (
     add_round_key,
     key_expansion,
     aes,
+    aes_ecb,
+    aes_cbc,
 )
 
 
@@ -197,3 +199,78 @@ def test_aes_encryption():
 
     ciphertext = aes(plaintext, key)
     assert ciphertext == expected_ciphertext
+
+
+def test_aes_decryption():
+    key = bytes.fromhex("2b7e151628aed2a6abf7158809cf4f3c")
+    ciphertext = bytes.fromhex("3925841d02dc09fbdc118597196a0b32")
+    expected_plaintext = bytes.fromhex("3243f6a8885a308d313198a2e0370734")
+
+    plaintext = aes(ciphertext, key, reverse=True)
+    assert plaintext == expected_plaintext
+
+    # Check consistency
+    p = bytes.fromhex("00112233445566778899AABBCCDDEEFF")
+    k = bytes.fromhex("000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F")
+    c = aes(p, k)
+    assert aes(c, k, reverse=True) == p
+
+
+def test_inverse_functions():
+    state = np.random.randint(0, 256, (4, 4), dtype=np.uint8)
+
+    # SubBytes
+    assert np.array_equal(sub_bytes(sub_bytes(state), reverse=True), state)
+
+    # ShiftRows
+    assert np.array_equal(shift_rows(shift_rows(state), reverse=True), state)
+
+    # MixColumns
+    # Note: MixColumns inverse only works if state is valid
+    assert np.array_equal(mix_columns(mix_columns(state), reverse=True), state)
+
+
+def test_aes_ecb():
+    key = bytes.fromhex("2b7e151628aed2a6abf7158809cf4f3c")
+    # 32 bytes (2 blocks)
+    plaintext = bytes.fromhex(
+        "3243f6a8885a308d313198a2e0370734" "00112233445566778899aabbccddeeff"
+    )
+
+    ciphertext = aes_ecb(plaintext, key)
+    assert len(ciphertext) == 32
+
+    decrypted = aes_ecb(ciphertext, key, reverse=True)
+    assert decrypted == plaintext
+
+    # Verify blocks are independent (characteristic of ECB)
+    block1 = plaintext[:16]
+    block2 = plaintext[16:]
+    assert ciphertext[:16] == aes(block1, key)
+    assert ciphertext[16:] == aes(block2, key)
+
+
+def test_aes_cbc():
+    key = bytes.fromhex("2b7e151628aed2a6abf7158809cf4f3c")
+    iv = bytes.fromhex("000102030405060708090a0b0c0d0e0f")
+    plaintext = bytes.fromhex(
+        "3243f6a8885a308d313198a2e0370734" "00112233445566778899aabbccddeeff"
+    )
+
+    ciphertext = aes_cbc(plaintext, key, iv)
+    assert len(ciphertext) == 32
+    assert ciphertext != aes_ecb(plaintext, key)  # CBC should be different from ECB
+
+    decrypted = aes_cbc(ciphertext, key, iv, reverse=True)
+    assert decrypted == plaintext
+
+    # Verify chain property
+    block1 = plaintext[:16]
+    xored1 = bytes([b ^ i for b, i in zip(block1, iv)])
+    expected_c1 = aes(xored1, key)
+    assert ciphertext[:16] == expected_c1
+
+    block2 = plaintext[16:]
+    xored2 = bytes([b ^ c for b, c in zip(block2, expected_c1)])
+    expected_c2 = aes(xored2, key)
+    assert ciphertext[16:] == expected_c2
