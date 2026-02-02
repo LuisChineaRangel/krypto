@@ -1,6 +1,6 @@
 [project]
 name = "krypto"
-version = "0.1.3"
+version = "0.2.0"
 description = "All-in-one Python framework for modern cryptography"
 authors = [
     { name = "Luis Chinea Rangel", email = "luischinearangel@gmail.com" }
@@ -16,18 +16,24 @@ requires-python = ">=3.11"
 name = "krypto"
 authors = ["Luis Chinea Rangel"]
 description = "All-in-one Python framework for modern cryptography"
-version = "0.1.2"
+version = "0.2.0"
 packages = [
-    { include = "krypto_lib" }
+    { include = "krypto_lib", from = "src" },
+    { include = "krypto_cli", from = "src" }
 ]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+numpy = "^2.2.3"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest.ini_options]
 minversion = "9.0"
 addopts = "--cov=krypto_lib --cov-report=term-missing"
 testpaths = ["tests"]
+pythonpath = ["src"]
 
 [build-system]
 requires = ["setuptools>=65.0", "wheel"]

@@ -33,22 +33,24 @@ def rsa(
     else:
         plaintext_blocks = message
 
+    d = calculate_private_exponent(e, phi)
     match decrypt:
         case True:
-            d = calculate_private_exponent(e, phi)
             result = [fast_pow(block, d, n) for block in plaintext_blocks]
         case _:
             result = [fast_pow(block, e, n) for block in plaintext_blocks]
     return result
 
+
 def sign(message: str, e: int, p: int, q: int) -> int:
     """Generates a digital signature for a message using RSA signing.
+
     Args:
         message (str): The message to sign.
-        d (int): The pr
-        ivate exponent.
+        e (int): The public exponent (used to derive the private exponent).
         p (int): The first prime number.
         q (int): The second prime number.
+
     Returns:
         int: The digital signature as an integer.
     """
@@ -58,9 +60,10 @@ def sign(message: str, e: int, p: int, q: int) -> int:
     d = calculate_private_exponent(e, phi)
 
     digest = hashlib.sha256(message.encode()).digest()
-    h = int.from_bytes(digest, byteorder='big') % n
+    h = int.from_bytes(digest, byteorder="big") % n
 
     return fast_pow(h, d, n)
+
 
 def verify_signature(message: str, signature: int, e: int, p: int, q: int) -> bool:
     """Verifies a digital signature for a message using RSA verification.
@@ -77,11 +80,12 @@ def verify_signature(message: str, signature: int, e: int, p: int, q: int) -> bo
     n, _ = calculate_phi(p, q)
 
     digest = hashlib.sha256(message.encode()).digest()
-    h = int.from_bytes(digest, byteorder='big') % n
+    h = int.from_bytes(digest, byteorder="big") % n
     recovered_hash = fast_pow(signature, e, n)
 
     # Compare the recovered hash with the original hash
     return h == recovered_hash
+
 
 def check_primality(p: int, q: int) -> bool:
     """Checks if both p and q are prime numbers.
@@ -97,6 +101,7 @@ def check_primality(p: int, q: int) -> bool:
         raise ValueError("Both p and q must be prime numbers.")
     return True
 
+
 def calculate_phi(p: int, q: int) -> tuple[int, int]:
     """Calculates Euler's totient function φ(n) for n = p * q.
     Args:
@@ -106,6 +111,7 @@ def calculate_phi(p: int, q: int) -> tuple[int, int]:
         tuple[int, int]: A tuple containing n and φ(n).
     """
     return (p * q, (p - 1) * (q - 1))
+
 
 def calculate_private_exponent(e: int, phi: int) -> int:
     """Calculates the private exponent d given e and φ(n).
