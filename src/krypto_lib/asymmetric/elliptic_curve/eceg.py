@@ -21,7 +21,6 @@ def eceg_decrypt(private_key: int, ciphertext: tuple[Point, Point]) -> Point:
     """
     c1, c2 = ciphertext
 
-    # M = C2 - d * C1
     shared_secret = c1 * private_key
     message_point = c2 - shared_secret
 

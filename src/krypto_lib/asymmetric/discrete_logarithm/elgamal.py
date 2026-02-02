@@ -1,4 +1,4 @@
-import random
+import secrets
 from typing import Optional
 from krypto_lib.utils import lehman_peralta_primality_test, fast_pow, mod_inverse
 
@@ -18,7 +18,7 @@ def generate_keys(p: int, g: int, x: Optional[int] = None) -> tuple[int, int]:
         raise ValueError("p must be a prime number.")
 
     if x is None:
-        x = random.randint(2, p - 2)
+        x = secrets.randbelow(p - 3) + 2
 
     y = fast_pow(g, x, p)
     return x, y
@@ -41,7 +41,7 @@ def encrypt(p: int, g: int, y: int, message: int, k: Optional[int] = None) -> tu
         raise ValueError("Message must be smaller than p.")
 
     if k is None:
-        k = random.randint(2, p - 2)
+        k = secrets.randbelow(p - 3) + 2
 
     a = fast_pow(g, k, p)
     s = fast_pow(y, k, p)  # Shared secret y^k mod p
@@ -80,7 +80,7 @@ def encrypt_multi(p: int, g: int, public_keys: list[int], message: int, k: Optio
         raise ValueError("Message must be smaller than p.")
 
     if k is None:
-        k = random.randint(2, p - 2)
+        k = secrets.randbelow(p - 3) + 2
 
     a = fast_pow(g, k, p)
     ciphertexts_b = []

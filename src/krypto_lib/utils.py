@@ -1,8 +1,6 @@
 import string
-import random
+import secrets
 from typing import Literal
-
-system_randomizer = random.SystemRandom()
 
 
 def pad_bytes(
@@ -110,7 +108,7 @@ def lehman_peralta_primality_test(n: int, k: int = 5) -> bool:
         return False
 
     for _ in range(k):
-        a = system_randomizer.randint(2, n - 2)
+        a = secrets.randbelow(n - 3) + 2
         x = pow(a, (n - 1) // 2, n)
         if x != 1 and x != n - 1:
             return False
