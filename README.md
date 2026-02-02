@@ -17,33 +17,38 @@ It aims to provide tools for encryption, hashing, key management, and secure dat
 - [Current Status](#current-status)
 - [Project Structure](#project-structure)
 - [Symmetric Ciphers](#symmetric-ciphers)
-  - [Vigenère Cipher](#vigenère-cipher)
-  - [RC4 (ARC4)](#rc4-arc4)
-  - [AES (Advanced Encryption Standard)](#aes-advanced-encryption-standard)
-  - [ChaCha20](#chacha20)
+    - [Vigenère Cipher](#vigenère-cipher)
+    - [RC4 (ARC4)](#rc4-arc4)
+    - [AES (Advanced Encryption Standard)](#aes-advanced-encryption-standard)
+    - [ChaCha20](#chacha20)
 - [Asymmetric Ciphers](#asymmetric-ciphers)
-  - [RSA (Rivest–Shamir–Adleman)](#rsa-rivestshamiradleman)
+    - [RSA (Rivest–Shamir–Adleman)](#rsa-rivestshamiradleman)
+    - [Diffie-Hellman (DH)](#diffie-hellman-dh)
+    - [ElGamal](#elgamal)
+    - [Elliptic Curve Cryptography (ECC)](#elliptic-curve-cryptography-ecc)
+- [Issues](#issues)
 
 ---
 
 ## Current Status
 
-- Project just started (v0.1.2)
 - Initial project structure in place
 - Core modules and basic setup planned
 - RSA, Vigenère, ARC4, and ChaCha20 ciphers implemented
 - GPS L1C/A signal simulator implemented
 - Basic unit tests for implemented ciphers
 - Symmetric Ciphers:
-  - AES (in progress)
-  - ChaCha20
-  - RC4 (ARC4)
-  - Vigenère Cipher
+    - AES (ECB, CBC)
+    - ChaCha20
+    - RC4 (ARC4)
+    - Vigenère Cipher
 - Asymmetric Ciphers:
-  - RSA
+    - RSA
+    - Diffie-Hellman (Discrete Logarithm & Elliptic Curve)
+    - ElGamal (Discrete Logarithm & Elliptic Curve)
 - Pseudorandom Number Generators:
-  - PRGA of ARC4
-  - GPS C/A PRN Code Generator
+    - PRGA of ARC4
+    - GPS C/A PRN Code Generator
 
 ---
 
@@ -136,6 +141,15 @@ AES operates on a $4 \times 4$ column-major matrix of bytes called the **State**
 
 ---
 
+#### Modes of Operation
+
+To encrypt data of arbitrary length, AES is used with different **modes of operation**:
+
+- **ECB (Electronic Codebook):** The simplest mode where each block is encrypted independently. It is generally **insecure** for complex data because it reveals patterns in the plaintext (the famous "Tux" image).
+- **CBC (Cipher Block Chaining):** Each block of plaintext is XORed with the previous ciphertext block before being encrypted. This provides better security and hides patterns, but requires an **Initialization Vector (IV)** and is non-parallelizable during encryption.
+
+---
+
 AES is considered the "gold standard" of modern cryptography due to its high security and efficiency:
 
 - **Hardware Acceleration:** Most modern CPUs include **AES-NI** (New Instructions), which allow the processor to perform the encryption rounds directly in hardware, making it incredibly fast.
@@ -191,3 +205,49 @@ RSA remains a foundational pillar of internet security, though it is increasingl
 - **Digital Signatures:** Beyond encryption, RSA is used to "sign" documents. By encrypting a hash with a private key, anyone with the public key can verify the sender's identity and the document's integrity.
 - **Key Exchange:** Because RSA is slow for large data, it is rarely used to encrypt files directly. Instead, it is used to securely exchange a "session key" (like an AES key) which is then used for the actual data transfer.
 - **Current Status:** While 1024-bit RSA is considered insecure, **2048-bit** and **4096-bit** keys are still standard for SSL/TLS certificates and PGP email encryption.
+
+---
+
+### Diffie-Hellman (DH)
+
+**Diffie-Hellman** is a fundamental protocol for secure **Key Exchange**. It allows two or more parties to establish a shared secret over an insecure channel, which can then be used for symmetric encryption. Its security is based on the **Discrete Logarithm Problem (DLP)**.
+
+- **The Process:** Parties agree on a large prime $p$ and a generator $g$. Each chooses a private secret $a$ and $b$, and they exchange $g^a \pmod p$ and $g^b \pmod p$.
+- **Shared Secret:** Both compute the same value $K = g^{ab} \pmod p$, but an eavesdropper cannot find $a$ or $b$ from the exchanged values.
+- **DLP:** The difficulty lies in finding $x$ when given $y = g^x \pmod p$.
+- **Group Support:** Implementation includes support for $N$ participants (Group Key Exchange).
+- **Elliptic Curve:** Also implemented as **ECDH**, providing equivalent security with much smaller keys.
+
+---
+
+### ElGamal
+
+**ElGamal** is an asymmetric encryption system based on the Diffie-Hellman key exchange. It is **probabilistic**, meaning that encrypting the same plaintext twice with the same key will yield different ciphertexts.
+
+- **Security:** Like Diffie-Hellman, it relies on the difficulty of solving the **Discrete Logarithm Problem**.
+- **Efficiency:** The ciphertext is twice the size of the plaintext, as it consists of two parts $(a, b)$ representing the ephemeral public key and the masked message.
+- **Multi-recipient:** Implementation includes efficient broadcast encryption (`encrypt_multi`).
+- **Elliptic Curve:** Implementation as **ECEG** (Elliptic Curve ElGamal) included.
+
+---
+
+### Elliptic Curve Cryptography (ECC)
+
+**ECC** is a modern approach to public-key cryptography based on the algebraic structure of elliptic curves over finite fields. It provides the same level of security as RSA but with significantly smaller key sizes (e.g., a 256-bit ECC key is equivalent to a 3072-bit RSA key).
+
+- **Primitives:** Implementation of point addition, point doubling, and scalar multiplication on Weierstrass curves ($y^2 = x^3 + ax + b$).
+- **ECDH:** Elliptic Curve Diffie-Hellman for key exchange.
+- **ECEG:** Elliptic Curve ElGamal for asymmetric encryption.
+
+---
+
+## Issues
+
+If you encounter any bugs, have questions, or would like to suggest new features, please open an issue on the [GitHub Issues](https://github.com/LuisChineaRangel/krypto/issues) page.
+
+When reporting an issue, please include:
+
+- A clear and descriptive title.
+- Steps to reproduce the problem.
+- Expected vs. actual behavior.
+- Any relevant logs or screenshots.

@@ -140,6 +140,23 @@ def euclid_extended(a: int, b: int) -> tuple[int, int, int]:
     return gcd, x, y
 
 
+def mod_inverse(a: int, m: int) -> int:
+    """Calculates the modular multiplicative inverse of a modulo m using the Extended Euclidean Algorithm.
+    Args:
+        a (int): The number to find the inverse for.
+        m (int): The modulus.
+    Returns:
+        int: The modular multiplicative inverse of a modulo m.
+    Raises:
+        ValueError: If the modular inverse does not exist (gcd(a, m) != 1).
+    """
+    a = a % m
+    gcd, x, _ = euclid_extended(a, m)
+    if gcd != 1:
+        raise ValueError("Modular inverse does not exist.")
+    return x % m
+
+
 def gf2_multiply(a: int, b: int, modulus: int = 0x11B, n=8) -> int:
     """Multiplies two polynomials in any GF(2^n).
     Args:
