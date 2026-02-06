@@ -2,18 +2,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
-import AESPage from "./pages/AES";
-import VigenerePage from "./pages/Vigenere";
-import ARC4Page from "./pages/ARC4";
-import ChaCha20Page from "./pages/ChaCha20";
-import RSAPage from "./pages/RSA";
-import ECCPage from "./pages/ECC";
-import ECDHPage from "./pages/ECDH";
-import ECEGPage from "./pages/ECEG";
-import DiffieHellmanPage from "./pages/DiffieHellman";
-import ElGamalPage from "./pages/ElGamal";
-import GPSL1CAPage from "./pages/GPSL1CA";
-import PRGAPage from "./pages/PRGA";
+import AESPage from "./pages/algorithms/AES";
+import VigenerePage from "./pages/algorithms/Vigenere";
+import ARC4Page from "./pages/algorithms/ARC4";
+import ChaCha20Page from "./pages/algorithms/ChaCha20";
+import RSAPage from "./pages/algorithms/RSA";
+import ECCPage from "./pages/algorithms/ECC";
+import ECDHPage from "./pages/algorithms/ECDH";
+import ECEGPage from "./pages/algorithms/ECEG";
+import DiffieHellmanPage from "./pages/algorithms/DiffieHellman";
+import ElGamalPage from "./pages/algorithms/ElGamal";
+import GPSL1CAPage from "./pages/algorithms/GPSL1CA";
+import PRGAPage from "./pages/algorithms/PRGA";
 
 const App = () => (
     <BrowserRouter>

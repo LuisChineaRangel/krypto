@@ -14,11 +14,10 @@ import { useState } from "react";
 const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const menuItems = [
-		{ name: "Home", href: "#" },
-		{ name: "Projects", href: "/projects" },
+		{ name: "Home", href: "/#" },
 		{ name: "Algorithms", href: "/algorithms" },
 		{ name: "Documentation", href: "/docs" },
-		{ name: "GitHub", href: "/github" },
+		{ name: "GitHub", href: "https://github.com/LuisChineaRangel/krypto" },
 	];
 
 	return (
@@ -45,9 +44,9 @@ const Header = () => {
 
 			<NavbarContent className="hidden sm:flex items-center" justify="end">
 				<NavbarItem>
-					<Button as={Link} color="danger" href="#" variant="flat">
+					{/* <Button as={Link} color="danger" href="https://github.com/LuisChineaRangel/krypto" variant="flat">
 						Mi Librería
-					</Button>
+					</Button> */}
 				</NavbarItem>
 			</NavbarContent>
 

@@ -1,11 +1,10 @@
-import { Button, Divider } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { motion } from "framer-motion";
 import {
 	ChevronLeft,
 	ChevronRight,
 	ShieldCheck,
 	Key,
-	Settings,
 	FileCode,
 	Zap,
 } from "lucide-react";
@@ -88,7 +87,7 @@ const Sidebar = () => {
 		<motion.div
 			layout
 			animate={{ width: isExpanded ? 300 : 80 }}
-			className="hidden md:flex h-full bg-background flex flex-col p-4 relative"
+			className="hidden md:flex h-full bg-background flex flex-col p-4 relative overflow-y-auto"
 		>
 			<div
 				className={`flex items-center h-12 mb-8 px-2 ${isExpanded ? "justify-between" : "justify-center"}`}
@@ -129,20 +128,6 @@ const Sidebar = () => {
 					/>
 				))}
 			</nav>
-
-			<Divider className="my-4" />
-
-			<Button
-				variant="light"
-				className={`justify-start h-12 ${isExpanded ? "px-4" : "min-w-0 w-12 px-0 justify-center"}`}
-			>
-				<Settings size={20} className="text-default-500 shrink-0" />
-				{isExpanded && (
-					<span className="ml-3 text-default-500 overflow-hidden whitespace-nowrap">
-						Settings
-					</span>
-				)}
-			</Button>
 		</motion.div>
 	);
 };
