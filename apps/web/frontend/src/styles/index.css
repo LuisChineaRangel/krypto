@@ -14,19 +14,16 @@
     --color-purple-900: #5c068c;
     --color-purple-950: #1a022a;
 
-    /* 2. Mapeo Semántico (Para que HeroUI use tus colores) */
-    --color-primary: var(--color-purple-700);
+    --color-primary: var(--color-purple-50);
     --color-primary-foreground: var(--color-purple-50);
 
     --color-background: var(--color-purple-950);
     --color-foreground: #ffffff;
 
-    /* 3. Colores de Contenido (Para Cards y Sidebar) */
     --color-content1: #0a0118;
     --color-content2: #1a022a;
     --color-divider: rgba(255, 255, 255, 0.08);
 
-    /* 4. Estado Danger (Corregido HSL a Hex para consistencia) */
     --color-danger: #f31260;
     --color-danger-foreground: #ffffff;
 
@@ -34,22 +31,4 @@
     --radius-large: 16px;
 
     --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@layer base {
-    body {
-        @apply bg-background text-foreground antialiased selection:bg-purple-500/30;
-        font-family: "Inter", system-ui, sans-serif;
-        font-feature-settings: "cv02", "cv03", "cv04", "ss01";
-    }
-
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-        @apply bg-transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-        @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
-    }
 }

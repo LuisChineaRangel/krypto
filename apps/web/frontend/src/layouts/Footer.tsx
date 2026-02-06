@@ -3,13 +3,24 @@ import { Divider, Link } from "@heroui/react";
 const Footer = () => {
 	const currentYear = new Date().getFullYear();
 	const links = [
-		{ name: "Home", href: "#" },
-		{ name: "Algorithms", href: "#" },
-		{ name: "Docs", href: "#" },
-		{ name: "API Python", href: "#" },
+        {
+            title: "Resources",
+            items: [
+                { name: "Home", href: "/#" },
+                { name: "Algorithms", href: "/algorithms" },
+                { name: "Docs", href: "/docs" },
+                { name: "API Python", href: "/api" },
+            ],
+        },
+        {
+            title: "Contact",
+            items: [
+                { name: "Email", href: "mailto:luischinearangel@gmail.com?subject=Query" },
+            ],
+        },
 	];
 	return (
-		<footer className="w-full py-10 px-6 bg-background border-t border-default-200">
+		<footer className="py-10 px-6">
 			<Divider className="my-5" />
 			<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
 				<div className="col-span-1 md:col-span-2">
@@ -23,34 +34,23 @@ const Footer = () => {
 					</p>
 				</div>
 
-				<div className="flex flex-col gap-2">
-					<p className="font-semibold text-foreground mb-2">
-						Resources
-					</p>
-					{links.map((link) => (
-						<Link
-							key={link.name}
-							href={link.href}
-							color="foreground"
-							size="sm"
-						>
-							{link.name}
-						</Link>
-					))}
-				</div>
-				<div className="flex flex-col gap-2">
-					<p className="font-semibold text-foreground mb-2">
-						Contact
-					</p>
-					<p className="text-default-500 text-sm">
-						<a
-							href="mailto:luischinearangel@gmail.com"
-							className="text-foreground"
-						>
-							Email
-						</a>
-					</p>
-				</div>
+                {links.map((section) => (
+                    <div key={section.title} className="flex flex-col gap-2">
+                        <p className="font-semibold text-foreground mb-2">
+                            {section.title}
+                        </p>
+                        {section.items.map((link) => (
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                color="foreground"
+                                size="sm"
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                    </div>
+                ))}
 			</div>
 
 			<div className="max-w-7xl mx-auto mt-16 flex flex-col md:flex-row justify-between items-center gap-4 text-default-400 text-tiny">

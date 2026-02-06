@@ -14,26 +14,26 @@ import { useState } from "react";
 const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const menuItems = [
-		{ name: "Inicio", href: "#" },
-		{ name: "Proyectos", href: "#" },
-		{ name: "Algoritmos", href: "#" },
-		{ name: "Documentación", href: "#" },
-		{ name: "GitHub", href: "#" },
+		{ name: "Home", href: "#" },
+		{ name: "Projects", href: "/projects" },
+		{ name: "Algorithms", href: "/algorithms" },
+		{ name: "Documentation", href: "/docs" },
+		{ name: "GitHub", href: "/github" },
 	];
 
 	return (
-		<Navbar shouldHideOnScroll onMenuOpenChange={setIsMenuOpen} isBordered maxWidth="xl">
-			<NavbarContent>
+		<Navbar shouldHideOnScroll isBlurred={false} onMenuOpenChange={setIsMenuOpen} maxWidth="full" >
+			<NavbarContent className="md:hidden">
 				<NavbarMenuToggle
 					aria-label={isMenuOpen ? "Close menu" : "Open menu"}
 					className="sm:hidden"
 				/>
-				<NavbarBrand className="md:hidden">
+				<NavbarBrand>
 					<p className="text-3xl font-bold">KRYPTO</p>
 				</NavbarBrand>
 			</NavbarContent>
 
-			<NavbarContent className="hidden sm:flex gap-4 flex-1" justify="center">
+			<NavbarContent className="hidden sm:flex gap-4 flex-1" justify="start">
 				{menuItems.map((item) => (
 					<NavbarItem key={item.name}>
 						<Link href={item.href} size="lg">
