@@ -1,5 +1,6 @@
-export interface CryptoMethod {
+export interface CryptographyInfo {
     title: string;
+    summary?: string;
     description: string;
     icon: React.ReactNode;
     features: string[];

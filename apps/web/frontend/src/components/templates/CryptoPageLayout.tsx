@@ -1,10 +1,10 @@
 import { Card, CardBody, Chip, Button, Link } from "@heroui/react";
 import { motion } from "framer-motion";
 import { ExternalLink, Terminal, ShieldCheck, Cpu } from "lucide-react";
-import type { CryptoMethod } from "../../types/crypto";
+import type { CryptographyInfo } from "../../types/cryptography";
 
 interface Props {
-	data: CryptoMethod;
+	data: CryptographyInfo;
 }
 
 const CryptoPageLayout = ({ data }: Props) => {
@@ -22,14 +22,11 @@ const CryptoPageLayout = ({ data }: Props) => {
 					<h1 className="text-4xl font-extrabold tracking-tight text-foreground">
 						{data.title}
 					</h1>
-					<p className="text-default-500 mt-1">
-						Algoritmo de Criptografía de tu Lab
-					</p>
+					<p className="text-default-500 mt-1">{data.summary}</p>
 				</div>
 			</div>
 
-			{/* Descripción Principal */}
-			<Card className="border-none bg-content1 shadow-sm">
+			<Card className="shadow-sm">
 				<CardBody className="p-6">
 					<p className="text-lg leading-relaxed text-default-700">
 						{data.description}
@@ -38,8 +35,7 @@ const CryptoPageLayout = ({ data }: Props) => {
 			</Card>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-				{/* Características Técnicas */}
-				<Card className="bg-content1">
+				<Card>
 					<CardBody className="p-6">
 						<div className="flex items-center gap-2 mb-4 text-primary font-bold">
 							<Cpu size={20} />
@@ -51,16 +47,14 @@ const CryptoPageLayout = ({ data }: Props) => {
 									key={f}
 									className="text-sm text-default-600 flex items-start gap-2"
 								>
-									<span className="text-primary mt-1">•</span>{" "}
-									{f}
+									<span className="text-primary mt-1">•</span> {f}
 								</li>
 							))}
 						</ul>
 					</CardBody>
 				</Card>
 
-				{/* Seguridad y Tips */}
-				<Card className="bg-content1">
+				<Card>
 					<CardBody className="p-6">
 						<div className="flex items-center gap-2 mb-4 text-danger font-bold">
 							<ShieldCheck size={20} />
@@ -68,12 +62,7 @@ const CryptoPageLayout = ({ data }: Props) => {
 						</div>
 						<div className="flex flex-wrap gap-2">
 							{data.securityTips.map((tip) => (
-								<Chip
-									key={tip}
-									variant="flat"
-									color="danger"
-									size="sm"
-								>
+								<Chip key={tip} variant="flat" color="danger" size="sm">
 									{tip}
 								</Chip>
 							))}
@@ -82,7 +71,6 @@ const CryptoPageLayout = ({ data }: Props) => {
 				</Card>
 			</div>
 
-			{/* Bloque de Código */}
 			<Card className="bg-black border border-white/10 overflow-hidden">
 				<div className="bg-white/5 px-4 py-2 flex items-center justify-between border-b border-white/10">
 					<div className="flex items-center gap-2">

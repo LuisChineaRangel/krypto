@@ -1,0 +1,29 @@
+{
+  "sidebar": {
+    "menu": {
+      "symmetric": "Symmetric Encryption",
+      "asymmetric": "Asymmetric Encryption",
+      "stream": "Stream Ciphers",
+      "cryptographic": "Cryptographic Primitives",
+      "pythonApi": "Python API",
+      "factorization": "Factorization",
+      "ellipticCurve": "Elliptic Curve",
+      "discreteLog": "Discrete Logarithm",
+      "prng": "PRNG"
+    },
+    "items": {
+      "aes": "AES",
+      "vigenere": "Vigenere",
+      "arc4": "ARC4",
+      "chacha20": "ChaCha20",
+      "rsa": "RSA",
+      "ecc": "ECC",
+      "ecdh": "ECDH",
+      "eceg": "ECEG",
+      "diffieHellman": "Diffie-Hellman",
+      "elgamal": "ElGamal",
+      "gpsL1Ca": "GPS L1 CA",
+      "prga": "PRGA"
+    }
+  }
+}

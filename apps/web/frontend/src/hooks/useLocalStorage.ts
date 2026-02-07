@@ -8,7 +8,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
       const item = globalThis.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.error("Error leyendo localStorage", error);
+      console.error("Error reading localStorage", error);
       return initialValue;
     }
   });
@@ -19,7 +19,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
         globalThis.localStorage.setItem(key, JSON.stringify(storedValue));
       }
     } catch (error) {
-      console.error("Error guardando en localStorage", error);
+      console.error("Error saving to localStorage", error);
     }
   }, [key, storedValue]);
 
