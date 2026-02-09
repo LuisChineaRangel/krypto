@@ -1,0 +1,87 @@
+{
+  "brand": "KRYPTO",
+  "header": {
+    "home": "Home",
+    "docs": "Documentation",
+    "github": "GitHub"
+  },
+  "sidebar": {
+    "categories": {
+      "symmetric": "Symmetric Encryption",
+      "block": "Block Ciphers",
+      "classical": "Classical Ciphers",
+      "asymmetric": "Asymmetric Encryption",
+      "stream": "Stream Ciphers",
+      "cryptographic": "Cryptographic Primitives",
+      "factorization": "Factorization",
+      "elliptic-curve": "Elliptic Curve",
+      "discrete-log": "Discrete Logarithm",
+      "prng": "PRNG"
+    },
+    "primitives": {
+      "aes": "AES",
+      "vigenere": "Vigenere",
+      "arc4": "ARC4",
+      "chacha20": "ChaCha20",
+      "rsa": "RSA",
+      "ecc": "ECC",
+      "ecdh": "ECDH",
+      "eceg": "ECEG",
+      "diffie-hellman": "Diffie-Hellman",
+      "elgamal": "ElGamal",
+      "gpsL1Ca": "GPS L1 CA",
+      "prga": "PRGA"
+    }
+  },
+  "home": {
+    "title": "Welcome to ",
+    "subtitle": "A modular Python framework for modern cryptography",
+    "description": "Explore cutting-edge encryption, hashing, key management, and secure data handling",
+    "actions": {
+      "getStarted": "Get Started",
+      "learnMore": "Learn More"
+    },
+    "coreCapabilities": {
+      "title": "Core Capabilities"
+    },
+    "categories": {
+      "symmetric": {
+        "title": "Symmetric Ciphers",
+        "description": "Secure data with shared secret keys"
+      },
+      "asymmetric": {
+        "title": "Asymmetric Ciphers",
+        "description": "Public key cryptography for secure communication"
+      },
+      "prngs": {
+        "title": "PRNGs",
+        "description": "Pseudorandom number generators"
+      }
+    },
+    "why": {
+      "title": "Why Choose Krypto?",
+      "modular": { "title": "Modular Design", "desc": "Independent modules for easy maintenance and expansion" },
+      "tested": { "title": "Well-Tested", "desc": "Comprehensive unit and integration tests included" },
+      "extensible": { "title": "Extensible", "desc": "Easy to add new algorithms and features" },
+      "secure": { "title": "Secure", "desc": "Implements modern cryptographic standards" }
+    },
+    "cta": {
+      "title": "Start Exploring Cryptography Today",
+      "desc": "Access all cryptographic tools through an intuitive interface or command-line interface",
+      "action": "Explore Algorithms"
+    }
+  },
+  "footer": {
+    "description": "An all-in-one Python framework for modern cryptography, providing modular tools for encryption, decryption, hashing, and secure data handling.",
+    "copyright": "© {{year}} Krypto. All rights reserved.",
+    "resources": "Resources",
+    "home": "Home",
+    "docs": "Docs",
+    "contact": "Contact",
+    "email": "Email",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "specifications": "Specifications",
+  "security": "Security"
+}

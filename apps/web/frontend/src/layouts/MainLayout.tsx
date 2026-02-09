@@ -1,6 +1,6 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import Sidebar from "./Sidebar";
+import Header from "@layouts/core/Header";
+import Footer from "@layouts/core/Footer";
+import Sidebar from "@layouts/core/Sidebar";
 
 interface MainLayoutProps {
 	children: React.ReactNode;

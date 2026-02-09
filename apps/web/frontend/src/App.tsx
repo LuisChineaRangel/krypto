@@ -2,18 +2,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
-import AESPage from "./pages/algorithms/AES";
-import VigenerePage from "./pages/algorithms/Vigenere";
-import ARC4Page from "./pages/algorithms/ARC4";
-import ChaCha20Page from "./pages/algorithms/ChaCha20";
-import RSAPage from "./pages/algorithms/RSA";
-import ECCPage from "./pages/algorithms/ECC";
-import ECDHPage from "./pages/algorithms/ECDH";
-import ECEGPage from "./pages/algorithms/ECEG";
-import DiffieHellmanPage from "./pages/algorithms/DiffieHellman";
-import ElGamalPage from "./pages/algorithms/ElGamal";
-import GPSL1CAPage from "./pages/algorithms/GPSL1CA";
-import PRGAPage from "./pages/algorithms/PRGA";
+import AESPage from "./pages/primitives/AES";
+import VigenerePage from "./pages/primitives/Vigenere";
+import ARC4Page from "./pages/primitives/ARC4";
+import ChaCha20Page from "./pages/primitives/ChaCha20";
+import RSAPage from "./pages/primitives/RSA";
+import ECCPage from "./pages/primitives/ECC";
+import ECDHPage from "./pages/primitives/ECDH";
+import ECEGPage from "./pages/primitives/ECEG";
+import DiffieHellmanPage from "./pages/primitives/DiffieHellman";
+import ElGamalPage from "./pages/primitives/ElGamal";
+import GPSL1CAPage from "./pages/primitives/GPSL1CA";
+import PRGAPage from "./pages/primitives/PRGA";
 
 const App = () => (
     <BrowserRouter>

@@ -1,0 +1,14 @@
+{
+	"aes": { "title": "AES", "shortDesc": "Advanced Encryption Standard (block cipher)" },
+	"vigenere": { "title": "Vigenère", "shortDesc": "Classical substitution cipher" },
+	"arc4": { "title": "ARC4", "shortDesc": "Stream cipher (RC4 family)" },
+	"chacha20": { "title": "ChaCha20", "shortDesc": "Stream cipher designed for high performance and security" },
+	"rsa": { "title": "RSA", "shortDesc": "Public-key encryption based on integer factorization" },
+	"ecc": { "title": "ECC", "longName": "Elliptic Curve Cryptography", "shortDesc": "Public-key cryptography using elliptic curves" },
+	"ecdh": { "title": "ECDH", "shortDesc": "Elliptic Curve Diffie-Hellman key exchange" },
+	"eceg": { "title": "ECEG", "shortDesc": "Elliptic Curve ElGamal encryption" },
+	"diffie-hellman": { "title": "Diffie-Hellman", "shortDesc": "Classic Diffie-Hellman key exchange" },
+	"elgamal": { "title": "ElGamal", "shortDesc": "Asymmetric encryption based on discrete logarithms" },
+	"gpsL1Ca": { "title": "GPS L1 CA", "shortDesc": "Signal modulation used in civilian GPS" },
+	"prga": { "title": "PRGA", "shortDesc": "Pseudo-random generation algorithm (RC4 PRGA)" }
+}

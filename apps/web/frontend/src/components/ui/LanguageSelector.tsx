@@ -7,7 +7,7 @@ interface Props {
 	isExpanded: boolean;
 }
 
-export const LanguageSelector = ({ isExpanded }: Props) => {
+const LanguageSelector = ({ isExpanded }: Props) => {
 	const { toggleLanguage, languageLabel, tooltipLabel } = useLanguage();
 
 	return (
@@ -32,3 +32,5 @@ export const LanguageSelector = ({ isExpanded }: Props) => {
 		</Button>
 	);
 };
+
+export default LanguageSelector;

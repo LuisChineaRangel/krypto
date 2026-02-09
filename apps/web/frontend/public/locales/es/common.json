@@ -1,0 +1,87 @@
+{
+  "brand": "KRYPTO",
+  "header": {
+    "home": "Inicio",
+    "docs": "Documentación",
+    "github": "GitHub"
+  },
+  "sidebar": {
+    "categories": {
+      "symmetric": "Cifrado simétrico",
+      "block": "Cifrados de bloque",
+      "classical": "Cifrados clásicos",
+      "asymmetric": "Cifrado asimétrico",
+      "stream": "Cifrados de flujo",
+      "cryptographic": "Primitivas criptográficas",
+      "factorization": "Factorización",
+      "elliptic-curve": "Curva elíptica",
+      "discrete-log": "Logaritmo discreto",
+      "prng": "PRNG"
+    },
+    "primitives": {
+      "aes": "AES",
+      "vigenere": "Vigenere",
+      "arc4": "ARC4",
+      "chacha20": "ChaCha20",
+      "rsa": "RSA",
+      "ecc": "ECC",
+      "ecdh": "ECDH",
+      "eceg": "ECEG",
+      "diffie-hellman": "Diffie-Hellman",
+      "elgamal": "ElGamal",
+      "gpsL1Ca": "GPS L1 CA",
+      "prga": "PRGA"
+    }
+  },
+  "home": {
+    "title": "Bienvenido a ",
+    "subtitle": "Un framework modular en Python para criptografía moderna",
+    "description": "Explora cifrado de vanguardia, hashing, gestión de claves y manejo seguro de datos",
+    "actions": {
+      "getStarted": "Comenzar",
+      "learnMore": "Más información"
+    },
+    "coreCapabilities": {
+      "title": "Capacidades principales"
+    },
+    "categories": {
+      "symmetric": {
+        "title": "Cifrados simétricos",
+        "description": "Protege datos con claves secretas compartidas"
+      },
+      "asymmetric": {
+        "title": "Cifrados asimétricos",
+        "description": "Criptografía de clave pública para comunicaciones seguras"
+      },
+      "prngs": {
+        "title": "PRNGs",
+        "description": "Generadores de números seudoaleatorios"
+      }
+    },
+    "why": {
+      "title": "¿Por qué elegir Krypto?",
+      "modular": { "title": "Diseño modular", "desc": "Módulos independientes para fácil mantenimiento y expansión" },
+      "tested": { "title": "Bien probado", "desc": "Pruebas unitarias e integradas exhaustivas incluidas" },
+      "extensible": { "title": "Extensible", "desc": "Fácil añadir nuevos algoritmos y funcionalidades" },
+      "secure": { "title": "Seguro", "desc": "Implementa estándares criptográficos modernos" }
+    },
+    "cta": {
+      "title": "Comienza a explorar la criptografía hoy",
+      "desc": "Accede a todas las herramientas criptográficas mediante una interfaz intuitiva o interfaz de línea de comandos",
+      "action": "Explorar algoritmos"
+    }
+  },
+  "footer": {
+    "description": "Un framework todo en uno para la criptografía moderna en Python, que proporciona herramientas modulares para cifrado, descifrado, hashing y manejo seguro de datos.",
+    "copyright": "© {{year}} Krypto. Todos los derechos reservados.",
+    "resources": "Recursos",
+    "home": "Inicio",
+    "docs": "Documentación",
+    "contact": "Contacto",
+    "email": "Correo electrónico",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio"
+  },
+  "specifications": "Especificaciones",
+  "security": "Seguridad"
+}
