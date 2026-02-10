@@ -2,7 +2,7 @@ import { Button, Divider } from "@heroui/react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useLocalStorage } from "@hooks/useLocalStorage";
 import LanguageSelector from "@components/ui/LanguageSelector";
 
 import SIDEBAR_STRUCTURE from "@config/Sidebar";

@@ -20,7 +20,7 @@
     },
     "primitives": {
       "aes": "AES",
-      "vigenere": "Vigenere",
+      "vigenere": "Vigenère",
       "arc4": "ARC4",
       "chacha20": "ChaCha20",
       "rsa": "RSA",
@@ -60,10 +60,22 @@
     },
     "why": {
       "title": "¿Por qué elegir Krypto?",
-      "modular": { "title": "Diseño modular", "desc": "Módulos independientes para fácil mantenimiento y expansión" },
-      "tested": { "title": "Bien probado", "desc": "Pruebas unitarias e integradas exhaustivas incluidas" },
-      "extensible": { "title": "Extensible", "desc": "Fácil añadir nuevos algoritmos y funcionalidades" },
-      "secure": { "title": "Seguro", "desc": "Implementa estándares criptográficos modernos" }
+      "modular": {
+        "title": "Diseño modular",
+        "desc": "Módulos independientes para fácil mantenimiento y expansión"
+      },
+      "tested": {
+        "title": "Bien probado",
+        "desc": "Pruebas unitarias e integradas exhaustivas incluidas"
+      },
+      "extensible": {
+        "title": "Extensible",
+        "desc": "Fácil añadir nuevos algoritmos y funcionalidades"
+      },
+      "secure": {
+        "title": "Seguro",
+        "desc": "Implementa estándares criptográficos modernos"
+      }
     },
     "cta": {
       "title": "Comienza a explorar la criptografía hoy",
@@ -83,5 +95,9 @@
     "terms": "Términos de servicio"
   },
   "specifications": "Especificaciones",
-  "security": "Seguridad"
+  "security": "Seguridad",
+  "notFound": {
+    "title": "404 — No encontrado",
+    "message": "La página que buscas no existe."
+  }
 }

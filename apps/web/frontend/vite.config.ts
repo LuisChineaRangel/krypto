@@ -12,6 +12,7 @@ export default defineConfig({
       '@config': '/src/config',
       '@pages': '/src/pages',
       '@hooks': '/src/hooks',
+      '@data': '/src/data'
     }
   },
   ssr: {

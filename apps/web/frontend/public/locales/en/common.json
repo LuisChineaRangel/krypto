@@ -20,7 +20,7 @@
     },
     "primitives": {
       "aes": "AES",
-      "vigenere": "Vigenere",
+      "vigenere": "Vigenère",
       "arc4": "ARC4",
       "chacha20": "ChaCha20",
       "rsa": "RSA",
@@ -83,5 +83,9 @@
     "terms": "Terms of Service"
   },
   "specifications": "Specifications",
-  "security": "Security"
+  "security": "Security",
+  "notFound": {
+    "title": "404 — Not Found",
+    "message": "The page you are looking for does not exist."
+  }
 }

@@ -1,7 +1,7 @@
 import { Button } from "@heroui/react";
 import { Globe } from "lucide-react";
 import { motion } from "framer-motion";
-import { useLanguage } from "../../hooks/useLanguage";
+import { useLanguage } from "@hooks/useLanguage";
 
 interface Props {
 	isExpanded: boolean;

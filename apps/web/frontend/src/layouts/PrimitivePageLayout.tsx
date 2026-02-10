@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Lock } from "lucide-react";
 
 import SpecCard from "@components/ui/SpecCard";
 import LinksList from "@components/ui/LinksList";
@@ -9,7 +10,7 @@ export interface PrimitivePageData {
 	title: string;
 	summary?: string;
 	description: string;
-	icon: React.ReactNode;
+	icon?: React.ReactNode | string;
 	features: string[];
 	codeExample: string;
 	securityTips: string[];
@@ -19,6 +20,12 @@ export interface PrimitivePageData {
 
 export type PrimitivePageProps = { data: PrimitivePageData };
 
+const renderIcon = (icon?: React.ReactNode | string) => {
+	if (!icon) return null;
+	if (typeof icon === "string") return <Lock size={32} />;
+	return icon;
+};
+
 const PrimitivePageLayout = ({ data }: PrimitivePageProps) => {
 	return (
 		<motion.div
@@ -27,7 +34,7 @@ const PrimitivePageLayout = ({ data }: PrimitivePageProps) => {
 			className="max-w-4xl mx-auto space-y-8 py-6 md:py-10 px-4">
 			<header className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-8 md:mb-10 text-center sm:text-left">
 				<div className="p-4 bg-primary/10 rounded-2xl text-primary border border-primary/20 shrink-0">
-					{data.icon}
+					{renderIcon(data.icon)}
 				</div>
 
 				<div className="space-y-2">

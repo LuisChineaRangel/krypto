@@ -1,6 +1,6 @@
 {
 	"aes": { "title": "AES", "shortDesc": "Advanced Encryption Standard (cifrador por bloques)" },
-	"vigenere": { "title": "Vigenere", "shortDesc": "Cifrador clásico por sustitución" },
+	"vigenere": { "title": "Vigenère", "shortDesc": "Cifrador clásico por sustitución" },
 	"arc4": { "title": "ARC4", "shortDesc": "Cifrador de flujo (familia RC4)" },
 	"chacha20": { "title": "ChaCha20", "shortDesc": "Cifrador de flujo rápido y seguro" },
 	"rsa": { "title": "RSA", "shortDesc": "Cifrado de clave pública basado en factorización" },

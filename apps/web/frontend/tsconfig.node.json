@@ -15,6 +15,7 @@
       "@config/*": ["src/config/*"],
       "@pages/*": ["src/pages/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@data/*": ["src/data/*"]
     },
 
 		/* Bundler mode */
